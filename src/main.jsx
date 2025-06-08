@@ -9,6 +9,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     Component: dash, 
+    errorElement: <div>sfjklsjfs</div>,
   },
 
 
