@@ -12,11 +12,21 @@ import {proj} from './proj.js'
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: dash, 
+    Component: dash,
     errorElement: <div>sfjklsjfs</div>,
   },
-
-
+  {
+    path: "/proj",
+    Component: proj,
+  },
+  {
+    path: "/sprint",
+    Component: sprint,
+  },
+  {
+    path: "/scrum",
+    Component: scrum,
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
