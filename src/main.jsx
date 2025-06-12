@@ -2,30 +2,30 @@
 import { createRoot } from 'react-dom/client'
 
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import {dash} from './dash.js'
-import { Component } from 'react';
-import {scrum} from './scrum.js'
-import{sprint} from './sprint.js'
-import {proj} from './proj.js'
+import {Dash} from './dash.jsx'
+import { StrictMode } from "react";
+import {Scrum} from './scrum.jsx'
+import{Sprint} from './sprint.jsx'
+import {Proj} from './proj.jsx'
 
 //implment lazy later
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: dash,
+    element: <Dash />,
     errorElement: <div>sfjklsjfs</div>,
   },
   {
     path: "/proj",
-    Component: proj,
+    Component: <Proj/>,
   },
   {
     path: "/sprint",
-    Component: sprint,
+    element: <Sprint/>,
   },
   {
     path: "/scrum",
-    Component: scrum,
+    element: <Scrum/>,
   },
 ]);
 
