@@ -7,6 +7,7 @@ import { StrictMode } from "react";
 import {Scrum} from './scrum.jsx'
 import{Sprint} from './sprint.jsx'
 import {Proj} from './proj.jsx'
+import { Wbs } from './wbs.jsx';
 
 //implment lazy later
 const router = createBrowserRouter([
@@ -17,15 +18,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/proj",
-    Component: <Proj/>,
+    element: <Proj />,
   },
   {
     path: "/sprint",
-    element: <Sprint/>,
+    element: <Sprint />,
   },
   {
     path: "/scrum",
-    element: <Scrum/>,
+    element: <Scrum />,
+  },
+  {
+    path: "/wbs",
+    element: <Wbs />,
   },
 ]);
 
