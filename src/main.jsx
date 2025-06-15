@@ -8,29 +8,36 @@ import {Scrum} from './scrum.jsx'
 import{Sprint} from './sprint.jsx'
 import {Proj} from './proj.jsx'
 import { Wbs } from './wbs.jsx';
+import { Layout} from './layout.jsx';
 
 //implment lazy later
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dash />, 
-    errorElement: <div>sfjklsjfs</div>,
-  },
-  {
-    path: "/project",
-    element: <Proj />,
-  },
-  {
-    path: "/sprint",
-    element: <Sprint />,
-  },
-  {
-    path: "/scrum",
-    element: <Scrum />,
-  },
-  {
-    path: "/wbs",
-    element: <Wbs />,
+    element: <Layout />,
+    errorElement: <div>sfsf</div>,
+    children: [
+      {
+        index: true,
+        element: <Dash />,
+      },
+      {
+        path: "/project",
+        element: <Proj />,
+      },
+      {
+        path: "/sprint",
+        element: <Sprint />,
+      },
+      {
+        path: "/scrum",
+        element: <Scrum />,
+      },
+      {
+        path: "/wbs",
+        element: <Wbs />,
+      },
+    ],
   },
 ]);
 
