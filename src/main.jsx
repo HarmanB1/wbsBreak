@@ -13,11 +13,11 @@ import { Wbs } from './wbs.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dash />,
+    element: <Dash />, 
     errorElement: <div>sfjklsjfs</div>,
   },
   {
-    path: "/proj",
+    path: "/project",
     element: <Proj />,
   },
   {
