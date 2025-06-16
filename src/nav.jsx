@@ -18,22 +18,20 @@ export const Nav = ()=>{
           LOGO
         </div>
         {/* desktop*/}
-        <ul className="">
+        <ul className="hidden sm:flex space-x-6">
           {
             Links.map(
               ({to, label})=>{
                 return (
-                  <li key = {to}>
-                    <NavLink to = {to} >
-                      {label}
-                    </NavLink>
+                  <li key={to} className="hover:text-gray-400">
+                    <NavLink to={to} className={
+                      ({isActive})=> isActive ? "text-gray-600 font-semibold" : undefined
+                    }>{label}</NavLink>
                   </li>
                 );
               }
             )
-    
-          }
-          
+          } 
         </ul>
       </nav>
     );
