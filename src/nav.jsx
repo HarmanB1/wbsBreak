@@ -22,8 +22,11 @@ export const Nav = ()=>{
 
 
     return (
-      <nav className="flex bg-gray-800 dark:bg-gray-900 text-white  p-4 gap-x-3 items-center h-16 ">
-        <div className=" hidden sm:flex items-center ">LOGO</div>
+      <nav className="relative flex bg-gray-800 dark:bg-gray-900 text-white  p-4 gap-x-3 items-center h-16 ">
+        <div className=" hidden sm:flex items-center  ">LOGO</div>
+        <div className="sm:hidden absolute left-1/2 transform -translate-x-1/2">
+          LOGO
+        </div>
 
         {/* desktop*/}
         <ul className="hidden sm:flex space-x-6 ml-10">
@@ -54,7 +57,7 @@ export const Nav = ()=>{
           </button>
 
           <div
-            className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-slate-600 text-black py-1 z-50 transition-all duration-400 origin-right pl-4  ${
+            className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-600 text-black py-1 z-50 transition-all duration-400 origin-right pl-4  ${
               profMod
                 ? "opacity-100 scale-100 translate-y-0"
                 : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
