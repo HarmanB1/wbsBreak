@@ -1,3 +1,3 @@
 export const Setting = ()=>{
-    console.log(2)
+    sett
 }
