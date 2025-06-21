@@ -22,6 +22,7 @@ export const Nav = ()=>{
 
 
     return (
+      <>
       <nav className="relative flex bg-gray-800 dark:bg-gray-900 text-white  p-4 gap-x-3 items-center h-16 ">
         <div className=" hidden sm:flex items-center  ">LOGO</div>
         <div className="sm:hidden absolute left-1/2 transform -translate-x-1/2">
@@ -122,6 +123,36 @@ export const Nav = ()=>{
           </button>
         </div>
       </nav>
+      {userMod && (
+        <div className="sm:hidden bg-gray-700 text-white px-4 py-2 space-y-2 transition-all duration-300 ease-out ">
+          {Links.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setUserMod(false)}
+              className={({ isActive }) =>
+                `block px-2 py-1 rounded hover:bg-gray-600 ${
+                  isActive ? "bg-gray-500 font-semibold" : ""
+                }`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+          <hr className="border-gray-600" />
+          {profLinks.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setUserMod(false)}
+              className="block px-2 py-1 rounded hover:bg-gray-600"
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+      )}
+      </>
     );
 }
 
