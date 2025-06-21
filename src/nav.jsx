@@ -1,5 +1,5 @@
 import { NavLink} from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Nav = ()=>{
     const [profMod, setProfMod] = useState(false);
@@ -19,7 +19,23 @@ export const Nav = ()=>{
       { to: "/Setting", label: "Setting" },
     ];
 
+    useEffect(
+      ()=> {
+        const handleResize = () =>{
+          if(window.innerWidth >= 640){
+            setUserMod(false);
+          }
+        };
 
+        window.addEventListener("resize", handleResize);
+
+        return ()=>{
+          window.removeEventListener("resize", handleResize);
+        }
+
+
+
+      }, []);
 
     return (
       <>
