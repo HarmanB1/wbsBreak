@@ -13,6 +13,11 @@ export const Nav = ()=>{
       { to: "scrum", label: "Scrum" },
     ];
 
+    const profLinks = [
+      { to: "/Profile", label: "Profile" },
+      { to: "/Setting", label: "Setting" },
+    ];
+
 
 
     return (
@@ -46,7 +51,24 @@ export const Nav = ()=>{
             className="rounded-full border-2 border-transparent hover:border-white focus:outline-none "
             aria-label="User-menu"
           >
-            s
+            <ul>
+              {
+                profLinks.map(({to, label}) => {
+                  return (
+                    <li key={to}>
+                      <NavLink
+                        to={to}
+                        className={({ isActive }) =>
+                          isActive ? "text-gray-600 font-semibold" : undefined
+                        }
+                      >
+                        {label}
+                      </NavLink>
+                    </li>
+                  );
+                }
+              )}
+            </ul>
           </button>
           {profMod &&
             <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white text-black py-1 z-50">
