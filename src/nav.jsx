@@ -37,6 +37,16 @@ export const Nav = ()=>{
 
       }, []);
 
+    useEffect(
+      () =>{
+        setProfMod(false);
+      }
+    , [userMod]);
+
+    useEffect(() => {
+      setUserMod(false);
+    }, [profMod]);
+
     return (
       <>
         <nav className="relative flex bg-gray-800 dark:bg-gray-900 text-white  p-4 gap-x-3 items-center h-16 ">
@@ -139,9 +149,10 @@ export const Nav = ()=>{
             </button>
           </div>
         </nav>
+       
         {userMod && (
           <div
-            className={`sm:hidden bg-gray-700 text-white px-4 py-2 space-y-2
+            className={`sm:hidden absolute top-16 left-0 w-full backdrop-blur-sm shadow-md bg-gray-700 bg-opacity-60 text-white px-4 py-2 space-y-2
             transition-all duration-300 ease-out origin-top transform ${
               userMod
                 ? "opacity-100 scale-100 translate-y-0"
@@ -153,7 +164,7 @@ export const Nav = ()=>{
               <NavLink
                 key={to}
                 to={to}
-                onClick={() => setUserMod(false)}
+                onClick={() => {setUserMod(false); }}
                 className={({ isActive }) =>
                   `block px-2 py-1 rounded hover:bg-gray-600 opacity-0 translate-y-4
                 animate-fade-in-down animate-delay-${index * 100} ${
@@ -171,7 +182,7 @@ export const Nav = ()=>{
               <NavLink
                 key={to}
                 to={to}
-                onClick={() => setUserMod(false)}
+                onClick={() => {setUserMod(false);}}
                 className={`
                 block px-2 py-1 rounded hover:bg-gray-600 text-white opacity-0 translate-y-4 
                 animate-fade-in-down animate-delay-${
