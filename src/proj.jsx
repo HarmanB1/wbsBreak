@@ -1,3 +1,6 @@
 export const Proj = () => {
-  return console.log();
+
+  return(<div className="min-h-screen bg-slate-400">
+
+  </div>);
 };
