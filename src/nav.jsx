@@ -38,15 +38,7 @@ export const Nav = ()=>{
 
       }, []);
 
-    useEffect(
-      () =>{
-        setProfMod(false);
-      }
-    , [userMod]);
-
-    useEffect(() => {
-      setUserMod(false);
-    }, [profMod]);
+    
 
     return (
       <>
@@ -77,7 +69,14 @@ export const Nav = ()=>{
           {/*profile */}
           <div className="sm:block ml-auto relative">
             <button
-              onClick={() => setProfMod(!profMod)}
+              onClick={() => {
+                setProfMod(
+                  (prev)=>{
+                    if(!prev) setUserMod(false);
+                    return !prev;
+                  }
+                );
+              }}
               className="rounded-full border-2 border-transparent hover:border-white focus:outline-none"
               aria-label="User-menu"
             >
@@ -183,7 +182,12 @@ export const Nav = ()=>{
               <NavLink
                 key={to}
                 to={to}
-                onClick={() => {setUserMod(false);}}
+                onClick={() => {setUserMod(
+                  ()=>{
+                    if(!userMod) setProfMod(false);
+                    return !prev;
+                  }
+                );}}
                 className={`
                 block px-2 py-1 rounded hover:bg-gray-600 text-white opacity-0 translate-y-4 
                 animate-fade-in-down animate-delay-${
