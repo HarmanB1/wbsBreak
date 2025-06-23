@@ -24,6 +24,7 @@ export const Nav = ()=>{
         const handleResize = () =>{
           if(window.innerWidth >= 640){
             setUserMod(false);
+            setProfMod(false);
           }
         };
 
