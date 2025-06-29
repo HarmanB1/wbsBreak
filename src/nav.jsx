@@ -44,7 +44,7 @@ export const Nav = ()=>{
 
       useEffect(
        ()=>{
-        const handleClickOut = ()=>{
+        const handleClickOut = (e)=>{
 
           if (
             (profileRef.current && !profileRef.current.contains(e.target)) ||
