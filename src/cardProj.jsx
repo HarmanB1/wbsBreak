@@ -6,12 +6,20 @@ export const Card = ({name, description, date, imgSrc })=>{
 
     return (
       <div>
-        <button onClick={()=> setOption(!option)} > . . .</button>
-        {
-            option &&
-            <div>
-            </div>
-        }
+        <button
+          className="hover:bg-slate-100"
+          onClick={() => setOption(!option)}
+        >
+          {" "}
+          ⋮⋮
+        </button>
+        {option && (
+          <div>
+            <button>hide</button>
+            <button></button>
+            <button>delete</button>
+          </div>
+        )}
         <div className="">
           <h1 className="text-xl font-bold mb-2">{name}</h1>
           <img src={imgSrc} alt="Card image" />

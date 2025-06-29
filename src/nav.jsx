@@ -1,10 +1,14 @@
 import { NavLink} from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const Nav = ()=>{
     const [profMod, setProfMod] = useState(false);
     const [userMod, setUserMod] = useState(false);
     
+    const profileRef = useRef(null);
+    const menuRef = useRef(null);
+
+
 
     const Links = [
       { to: "/", label: "Home" },
@@ -38,6 +42,30 @@ export const Nav = ()=>{
 
       }, []);
 
+      useEffect(
+       ()=>{
+        const handleClickOut = ()=>{
+
+          if (
+            (profileRef.current && !profileRef.current.contains(e.target)) ||
+            (menuRef.current && !menuRef.current.contains(e.target))
+          ) {
+            setProfMod(false);
+            setUserMod(false);
+          }
+
+        }
+
+        document.addEventListener("mousedown", handleClickOut);
+        return () =>{
+          document.removeEventListener("mousedown", handleClickOut)
+        }
+          
+        }, []
+        
+
+      );
+
     
 
     return (
@@ -67,17 +95,15 @@ export const Nav = ()=>{
           </ul>
 
           {/*profile */}
-          <div className="sm:block ml-auto relative">
+          <div className="sm:block ml-auto relative" ref={profileRef}>
             <button
               onClick={() => {
-                setProfMod(
-                  (prev)=>{
-                    if(!prev) setUserMod(false);
-                    return !prev;
-                  }
-                );
+                setProfMod((prev) => {
+                  if (!prev) setUserMod(false);
+                  return !prev;
+                });
               }}
-              className="rounded-full border-2 border-transparent hover:border-white focus:outline-none"
+              className="rounded-full border-2 border-transparent hover:bg-white focus:outline-none"
               aria-label="User-menu"
             >
               ss
@@ -107,7 +133,10 @@ export const Nav = ()=>{
             </div>
           </div>
           {/** meu button for small screen */}
-          <div className="sm:hidden absolute left-0 flex items-center justify-between ">
+          <div
+            className="sm:hidden absolute left-0 flex items-center justify-between "
+            ef={menuRef}
+          >
             <button
               onClick={() => setUserMod(!userMod)}
               className="focus:outline-none relative items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 hover:ring-white hover:outline-none hover:ring-inset"
@@ -149,7 +178,7 @@ export const Nav = ()=>{
             </button>
           </div>
         </nav>
-       
+
         {userMod && (
           <div
             className={`sm:hidden absolute top-16 left-0 w-full backdrop-blur-sm shadow-md bg-gray-700 bg-opacity-60 text-white px-4 py-2 space-y-2
@@ -164,7 +193,9 @@ export const Nav = ()=>{
               <NavLink
                 key={to}
                 to={to}
-                onClick={() => {setUserMod(false); }}
+                onClick={() => {
+                  setUserMod(false);
+                }}
                 className={({ isActive }) =>
                   `block px-2 py-1 rounded hover:bg-gray-600 opacity-0 translate-y-4
                 animate-fade-in-down animate-delay-${index * 100} ${
@@ -182,12 +213,12 @@ export const Nav = ()=>{
               <NavLink
                 key={to}
                 to={to}
-                onClick={() => {setUserMod(
-                  ()=>{
-                    if(!userMod) setProfMod(false);
+                onClick={() => {
+                  setUserMod(() => {
+                    if (!userMod) setProfMod(false);
                     return !prev;
-                  }
-                );}}
+                  });
+                }}
                 className={`
                 block px-2 py-1 rounded hover:bg-gray-600 text-white opacity-0 translate-y-4 
                 animate-fade-in-down animate-delay-${
