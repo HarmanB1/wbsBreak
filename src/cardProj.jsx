@@ -5,12 +5,11 @@ export const Card = ({name, description, date, imgSrc })=>{
     const[option, setOption] = useState(false);
 
     return (
-      <div className="relative big-white rounded-lg shadow-md overflow-hidden w-72">
+      <div className="relative big-white rounded-lg shadow-md overflow-hidden w-full h-full">
         <button
           className="absolute top-2 right-2 px-2 py-1 rounded hover:bg-gray-200  focus:outline-none"
           onClick={() => setOption(!option)}
         >
-          {" "}
           ⋮⋮
         </button>
 
