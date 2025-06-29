@@ -41,9 +41,16 @@ export const Proj = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="">
+      <div className="flex items-center justify-between mb-6 relative">
         <h1 className="text-3xl font-bold mb-6">Projects</h1>
-        <button className="absolute right-2 ">sort</button>
+        <div className="flex gap-3">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+            sort
+          </button>
+          <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 ">
+            hide
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 overflow-visible ">

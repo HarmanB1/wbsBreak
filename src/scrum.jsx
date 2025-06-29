@@ -1,3 +1,18 @@
 export const Scrum = () => {
-  return console.log();
+  return (
+    <div>
+      {/** interface */}
+      <div>
+        sfs
+
+      </div>
+
+      {/**input */}
+      <div>
+        <input 
+
+      </div>
+    </div>
+
+  )
 };
