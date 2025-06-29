@@ -1,4 +1,6 @@
 
+import { useEffect, useState } from "react";
+import { Card } from "./cardProj";
 export const Proj = () => {
   const [ projects, setProjects] = useState([]);
 
@@ -37,9 +39,27 @@ export const Proj = () => {
     setProjects(fakeProjects);
   }, []);
 
-  return(<div className="min-h-screen bg-slate-400">
-
-
-
-  </div>);
+  return (
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-3xl font-bold mb-6">Projects</h1>
+      <div className="grid grid-cols-1 sm:grdi-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+        {projects.map((proj) => {
+          return (
+            <div
+              className="transition-transform duration-300 hover:-translate-y-2 "
+              key={proj.id}
+            >
+              <Card
+                name={proj.name}
+                description={proj.description}
+                date={proj.date}
+                imgSrc={proj.imgSrc}
+              />
+            </div>
+          );
+          
+        })}
+      </div>
+    </div>
+  );
 };
