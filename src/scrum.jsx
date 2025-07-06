@@ -10,6 +10,12 @@ export const Scrum = () => {
       {/**input */}
       <div>
         <input 
+        className="focus:outline-none"
+        type="text"
+        placeholder="type your message to scrum master" 
+        value={input}
+        
+        />
 
       </div>
     </div>

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Card } from "./cardProj";
 export const Proj = () => {
   const [ projects, setProjects] = useState([]);
+  const [showHide, setShowHide] = useState("show hidden");
+
 
   useEffect(() => {
     const fakeProjects = [
@@ -39,6 +41,12 @@ export const Proj = () => {
     setProjects(fakeProjects);
   }, []);
 
+  const handleShow = ()=>{
+    setShowHide(p => p==="show hidden"? "hide hidden": "show hidden");
+  }
+
+
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="flex items-center justify-between mb-6 relative">
@@ -47,8 +55,8 @@ export const Proj = () => {
           <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
             sort
           </button>
-          <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 ">
-            hide
+          <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 " onClick={handleShow}>
+            {showHide}
           </button>
         </div>
       </div>
