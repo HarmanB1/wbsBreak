@@ -11,11 +11,10 @@ export const Nav = ()=>{
 
 
     const Links = [
-      { to: "/", label: "Home" },
+      { to: "/", label: "Dashboard" },
       { to: "/project", label: "Projects" },
-      { to: "/sprint", label: "Sprint" },
-      { to: "/wbs", label: "WBS" },
-      { to: "scrum", label: "Scrum" },
+      { to: "/Stats", label: "Statistics" },
+      
     ];
 
     const profLinks = [
