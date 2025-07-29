@@ -8,6 +8,8 @@ export const Scrum = () => {
     if(input.trim()==='') return;
     setMessages([...messages, {text:input, owner: "client"}]);
     setInput('');
+
+    
   };
 
   const handlerKey = (e) => {
@@ -43,6 +45,12 @@ export const Scrum = () => {
           onKeyDown={handlerKey}
         />
       </div>
+      <button onClick={()=>{sendMessage()}}
+        className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
+          Send
+
+      </button>
     </div>
   );
 };
