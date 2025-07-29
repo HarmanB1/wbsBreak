@@ -12,6 +12,7 @@ import { Wbs } from './wbs.jsx';
 import { Layout} from './layout.jsx';
 import { Setting } from './setting.jsx';
 import { Profile } from './profile.jsx';
+import { Stats } from './stats.jsx';
 
 //implment lazy later
 const router = createBrowserRouter([
@@ -29,28 +30,38 @@ const router = createBrowserRouter([
         element: <Proj />,
       },
       {
-        path: "/sprint",
-        element: <Sprint />,
+        path: "/stats",
+        element: <Stats />,
       },
-      {
-        path: "/scrum",
-        element: <Scrum />,
+       {
+        path: "/profile/:id",
+        element: <Profile />,
+        children: [
+            {
+              path: "/wbs",
+              element: <Wbs />,
+            },
+            {
+              path: "/sprint",
+              element: <Sprint />,
+            },
+            {
+              path: "/scrum",
+              element: <Scrum />
+            }
+        ]
       },
-      {
-        path: "/wbs",
-        element: <Wbs />,
-      },
+
     ],
   },
   {
     path: "/profile",
-    element:<Profile />
+    element: <Profile />,
   },
   {
     path: "/settings",
-    element: <Setting />
-  }
-
+    element: <Setting />,
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
