@@ -3,10 +3,10 @@ import { useState } from "react";
 export const Scrum = () => {
   const[input, setInput] = useState('');
   return (
-    <div className="flex flex-col h-90vh max-w-2xl mx-auto border border-gray-300 ">
+    <div className="flex flex-col h-90vh max-w-2xl mx-auto border border-gray-300 rounded-lg shadow-md ">
       {/** interface */}
-      <div>
-        sfsj
+      <div className="bg-blue-600 text-white px-4 py-4 font-bold">
+       Chat
 
       </div>
 
