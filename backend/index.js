@@ -8,11 +8,13 @@ const app = express();
 app.use(cors());
 
 
-app.get('/', (req, res)=>{
-    console.log(req);
+app.get('/api/projects', (req, res)=>{
+    res.json("blank");
 });
 
+app.get('')
 const PORT = process.env.PORT || 3000; //falbackDev
+
 app.listen(PORT, ()=>{
     console.log(`server listening on port ${PORT}`);
 });
