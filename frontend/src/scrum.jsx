@@ -3,8 +3,18 @@ import { useState } from "react";
 export const Scrum = () => {
   const[input, setInput] = useState('');
   const[messages, setMessages] = useState([]);
+
+  const sendMessage= ()=>{
+    if(input.trim()==='') return;
+    setMessages([...messages, {text:input, owner: "client"}]);
+    setInput('');
+  }
+
+  const handlerKey = (e) =>{
+    if(e.key === "Enter") sendMessage();
+  }
   return (
-    <div className="flex flex-col h-90vh max-w-2xl mx-auto border border-gray-300 rounded-lg shadow-md ">
+    <div className="flex flex-col h-100000 max-w-2xl mx-auto border border-gray-300 rounded-lg shadow-md ">
       {/** interface */}
       <div className="bg-blue-600 text-white px-4 py-4 font-bold">Chat</div>
 
@@ -27,11 +37,12 @@ export const Scrum = () => {
       {/**input */}
       <div>
         <input
-          className="focus:outline-none "
+          className="flex items-center border-t border-gray-300 p-3 bg-gray-50"
           type="text"
-          placeholder="type your message to scrum master"
+          placeholder="type your message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handlerKey}
         />
       </div>
     </div>
