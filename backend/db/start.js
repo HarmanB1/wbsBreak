@@ -13,6 +13,6 @@ const pool = new Pool({
   port: process.env.PG_PORT,
 });
 
-export const query = (text, params) =>{
+export const query = async (text, params) =>{
     return pool.query(text, params);
 }
