@@ -1,8 +1,8 @@
 import express from "express";
 import cors from 'cors';
 import dotenv from 'dotenv';
-import projectsRouter from "./routes/project.js";
-import { query } from "./db/start.js";
+import projectsRouter from "./src/routes/project.js";
+import { query } from "./src/db/start.js";
 
 dotenv.config();
 
