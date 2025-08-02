@@ -1,35 +1,56 @@
 export const up = (pgm) => {
   pgm.createTable("users", {
-    id: "id",
-    name: { type: "varchar(1000)", notNull: true },
-    createdAt: {
-      type: "timestamp",
+    id: {
+      type: "uuid",
+      primaryKey: true,
+      default: pgm.func("gen_random_uuid()"),
+    },
+    email: {
+      type: "text",
+      notNull: true,
+      unique: true,
+    },
+    password_hash: {
+      type: "text",
+      notNull: true,
+    },
+    created_at: {
+      type: "timestamptz",
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
   });
 
-  pgm.createTable("posts", {
-    id: "id",
-    userId: {
-      type: "integer",
+  
+  pgm.createTable("projects", {
+    id: {
+      type: "uuid",
+      primaryKey: true,
+      default: pgm.func("gen_random_uuid()"),
+    },
+    user_id: {
+      type: "uuid",
       notNull: true,
-      references: '"users"',
+      references: "users(id)",
       onDelete: "CASCADE",
     },
-    body: { type: "text", notNull: true },
-    createdAt: {
-      type: "timestamp",
+    title: {
+      type: "text",
+      notNull: true,
+    },
+    description: {
+      type: "text",
+    },
+    created_at: {
+      type: "timestamptz",
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
   });
-
-  pgm.createIndex("posts", "userId");
 };
 
 export const down = (pgm) => {
 
-  pgm.dropTable("posts");
+  pgm.dropTable("projects");
   pgm.dropTable("users");
 };
