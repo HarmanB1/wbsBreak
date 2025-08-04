@@ -1,16 +1,10 @@
 import express from "express";
-import { hashPassword } from "../middleware/hashPassword";
+import { hashPassword } from "../util/hashPassword";
 const router = express.router();
 
 
 router.post("/register", (req, res) => {
-  const {email, password} = req.body;
-
-  try{
-    passwordHash = hashPassword(password);
-    
-    
-  }
+  
 
 });
 
