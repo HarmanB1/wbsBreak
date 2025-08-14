@@ -2,7 +2,7 @@ import { query } from "../db/query";
 
 export const createUser = async(email , password) =>{
     const result = await query(`
-        INSERT INTO users (email, password_hash) VALUS ($1, $2) 
+        INSERT INTO users (email, password_hash) VALUES ($1, $2) 
         RETURNING id, email
         `, [email, password]);
     return result.rows[0];

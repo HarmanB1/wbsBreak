@@ -1,4 +1,5 @@
 import { hashPassword } from "../util/hashPassword";
+import { createUser } from "../models/userModel";
 export const registerUser = async(req, res) =>{
     const {email, password} = req.body;
     
@@ -14,12 +15,26 @@ export const registerUser = async(req, res) =>{
 
         const newUser= await createUser(email, passwordHash);
 
-        res.status(201).json({message: "User registered"})
-        
+        res.status(201).json({message: "User registered"});
         
       }catch(err){
         //add later
         console.log(err);
       }
 
+}
+
+export const Login= async(req, res) =>{
+  const{email, password} = req.body;
+
+  try{
+    if (!email || !password) {
+      return res.status(400).json({ error: "email or password not sent" });
+    }
+    
+    
+    
+  }catch(err){
+    console.log(err);
+  }
 }
