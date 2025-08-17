@@ -1,18 +1,18 @@
 
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import './loggedIn/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import {Dash} from './dash.jsx'
+import {Dash} from './loggedIn/dash.jsx'
 import { StrictMode } from "react";
-import {Scrum} from './loggedIN/scrum.jsx'
-import{Sprint} from './loggedIN/sprint.jsx'
-import {Proj} from './loggedIN/proj.jsx'
-import { Wbs } from './loggedIN/wbs.jsx';
+import {Scrum} from './loggedIn/scrum.jsx'
+import{Sprint} from './loggedIn/sprint.jsx'
+import {Proj} from './loggedIn/proj.jsx'
+import { Wbs } from './loggedIn/wbs.jsx';
 import { Layout} from './layout.jsx';
-import { Setting } from './loggedIN/setting.jsx';
-import { Profile } from './loggedIN/profile.jsx';
-import { Stats } from './loggedIN/stats.jsx';
+import { Setting } from './loggedIn/setting.jsx';
+import { Profile } from './loggedIn/profile.jsx';
+import { Stats } from './loggedIn/stats.jsx';
 
 import { Landing } from './landingPage/landing.jsx';
 import { SignUp } from './landingPage/signup.jsx';
