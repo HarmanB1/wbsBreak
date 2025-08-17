@@ -15,3 +15,16 @@ export const getUserByEmail = async(email) =>{
     [email]);
     return result.rows[0];
 }
+
+export const getUserPassword = async (email) => {
+  const result = await query(
+    `
+        SELECT * FROM users WHERE email = $1
+        RETURNING email
+        `,
+    [email]
+  );
+  return result.rows[0];
+};
+
+

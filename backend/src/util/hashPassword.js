@@ -6,3 +6,7 @@ export const hashPassword = async (password)=>{
     const salt = await bcrypt.genSalt(saltRounds);
     return await bcrypt.hash(password, salt)
 }
+
+export const compPassword = async(userPass, hashPass)=>{
+    return await bycrypt.copmare(userPass, hashPass);
+}

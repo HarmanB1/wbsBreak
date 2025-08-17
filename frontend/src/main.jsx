@@ -18,50 +18,39 @@ import { Stats } from './stats.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    errorElement: <div>sfsfk</div>,
+    element: <Landing />,
     children: [
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <Signup /> }
+    ]
+  },
+  {
+    path: "/app",
+    element: <Layout />,
+    children: [
+      { index: true, element: <Dash /> },
+      { path: "stats", element: <Stats /> },
+      { path: "settings", element: <Setting /> },
       {
-        index: true,
-        element: <Dash />,
-      },
-      {
-        path: "/project",
-        element: <Proj />,
-      },
-      {
-        path: "/stats",
-        element: <Stats />,
-      },
-       {
-        path: "/profile/:id",
-        element: <Profile />,
+        path: "projects",
+        element: <ProjectsLayout />,
         children: [
-            {
-              path: "/wbs",
-              element: <Wbs />,
-            },
-            {
-              path: "/sprint",
-              element: <Sprint />,
-            },
-            {
-              path: "/scrum",
-              element: <Scrum />
-            }
+          { index: true, element: <Proj /> },
+          { path: "new", element: <Proj /> },
+          {
+            path: ":projectId",
+            element: <ProjectLayout />,
+            children: [
+              { index: true, element: <ProjectOverview /> },
+              { path: "wbs", element: <Wbs /> },
+              { path: "sprint", element: <Sprint /> },
+              { path: "scrum", element: <Scrum /> },
+            ]
+          }
         ]
-      },
-
-    ],
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/settings",
-    element: <Setting />,
-  },
+      }
+    ]
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
