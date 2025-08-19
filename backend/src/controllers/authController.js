@@ -1,5 +1,5 @@
-import { hashPassword } from "../util/hashPassword";
-import { createUser } from "../models/userModel";
+import { hashPassword } from "../util/hashPassword.js";
+import { createUser } from "../models/userModel.js";
 export const registerUser = async(req, res) =>{
     const {email, password} = req.body;
     

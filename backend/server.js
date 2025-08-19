@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import projectsRouter from "./src/routes/project.js";
 import { query } from "./src/db/query.js";
+import authRoutes from "./src/routes/auth.js";
+
 
 dotenv.config();
 
