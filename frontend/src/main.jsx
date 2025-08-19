@@ -9,7 +9,7 @@ import {Scrum} from './loggedIn/scrum.jsx'
 import{Sprint} from './projFiles/sprint.jsx'
 import {Proj} from './loggedIn/proj.jsx'
 import { Wbs } from './projFiles/wbs.jsx';
-import { Layout} from './layout/layout.jsx';
+import { Layout} from './layout/baseLayout.jsx';
 import { Setting } from './loggedIn/setting.jsx';
 import { Profile } from './loggedIn/profile.jsx';
 import { Stats } from './loggedIn/stats.jsx';
