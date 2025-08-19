@@ -26,8 +26,7 @@ export const SignUp = () => {
       const data = await res.json();
       console.log("User signed up:", data);
 
-      // Optionally redirect to dashboard or login
-      // navigate("/login"); if you’re using react-router
+    
     } catch (err) {
       setError(err.message);
     } finally {
