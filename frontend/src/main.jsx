@@ -19,37 +19,39 @@ import { SignUp } from './landingPage/signup.jsx';
 import { LogIn } from './landingPage/login.jsx';
 import { Features } from './landingPage/Feature.jsx';
 import { Pricing } from './landingPage/pricing.jsx';
+import { ProjectIn } from './projFiles/projectIn.jsx';
 
 //implment lazy later
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PrivateLayout />,
+    element: <PublicLayout />,
     children: [
+      { index: true, element: <Landing /> },
       { path: "login", element: <LogIn /> },
       { path: "signup", element: <SignUp /> },
-      { path: "Landing", element: <Landing /> },
+
       { path: "features", element: <Features /> },
       { path: "Pricing", element: <Pricing /> },
     ],
   },
   {
     path: "/app",
-    element: <PublicLayout />,
+    element: <PrivateLayout />,
     children: [
       { index: true, element: <Dash /> },
       { path: "stats", element: <Stats /> },
       { path: "settings", element: <Setting /> },
       {
         path: "projects",
-        element: <Proj/>,
+        element: <Proj />,
         children: [
           { index: true, element: <Proj /> },
           {
             path: ":projectId",
             element: <ProjectIn />,
             children: [
-              { index: true, element: <ProjectOverview /> },
+              { index: true, element: <ProjectIn /> },
               { path: "wbs", element: <Wbs /> },
               { path: "sprint", element: <Sprint /> },
               { path: "scrum", element: <Scrum /> },

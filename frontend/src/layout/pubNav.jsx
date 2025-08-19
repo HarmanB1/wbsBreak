@@ -11,10 +11,11 @@ export const PubNav = ()=>{
 
 
     const Links = [
-      { to: "/", label: "Dashboard" },
-      { to: "/project", label: "Projects" },
-      { to: "/Stats", label: "Statistics" },
-      
+      { to: "/", label: "Home" },
+      { to: "/features", label: "features" },
+      { to: "/pricing", label: "pricing" },
+      { to: "/login", label: "Login" },
+      { to: "/signup", label: "Signup" },
     ];
 
     const profLinks = [
