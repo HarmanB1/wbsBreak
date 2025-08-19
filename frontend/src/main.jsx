@@ -6,18 +6,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import {Dash} from './loggedIn/dash.jsx'
 import { StrictMode } from "react";
 import {Scrum} from './loggedIn/scrum.jsx'
-import{Sprint} from './loggedIn/sprint.jsx'
+import{Sprint} from './projFiles/sprint.jsx'
 import {Proj} from './loggedIn/proj.jsx'
-import { Wbs } from './loggedIn/wbs.jsx';
-import { Layout} from './layout.jsx';
+import { Wbs } from './projFiles/wbs.jsx';
+import { Layout} from './layout/layout.jsx';
 import { Setting } from './loggedIn/setting.jsx';
 import { Profile } from './loggedIn/profile.jsx';
 import { Stats } from './loggedIn/stats.jsx';
-
 import { Landing } from './landingPage/landing.jsx';
 import { SignUp } from './landingPage/signup.jsx';
 import { LogIn } from './landingPage/login.jsx';
-import { Doc } from './landingPage/doc.jsx';
+import { Features } from './landingPage/Feature.jsx';
 import { Pricing } from './landingPage/pricing.jsx';
 
 //implment lazy later
@@ -26,10 +25,11 @@ const router = createBrowserRouter([
     path: "/",
     element: <Landing />,
     children: [
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
-      { path: "signup", element: <Signup /> },
-      { path: "signup", element: <Signup /> },
+      { path: "login", element: <LogIn /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "Landing", element: <Landing /> },
+      { path: "features", element: <Features /> },
+      { path: "Pricing", element: <Pricing /> },
     ],
   },
   {
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       { path: "settings", element: <Setting /> },
       {
         path: "projects",
-        element: <ProjectsLayout />,
+        element: <Proj/>,
         children: [
           { index: true, element: <Proj /> },
           { path: "new", element: <Proj /> },
