@@ -1,7 +1,7 @@
 import { NavLink} from "react-router";
 import { useState, useEffect, useRef } from "react";
 
-export const Nav = ()=>{
+export const PubNav = ()=>{
     const [profMod, setProfMod] = useState(false);
     const [userMod, setUserMod] = useState(false);
     

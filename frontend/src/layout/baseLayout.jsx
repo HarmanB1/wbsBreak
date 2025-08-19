@@ -1,7 +1,7 @@
-import { Nav } from "./nav";
+
 import { Outlet } from "react-router";
 
-export const Layout = ({nav})=>{
+export const BaseLayout = ({nav})=>{
     return(
         <div>
             {nav}

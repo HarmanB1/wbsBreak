@@ -9,7 +9,8 @@ import {Scrum} from './loggedIn/scrum.jsx'
 import{Sprint} from './projFiles/sprint.jsx'
 import {Proj} from './loggedIn/proj.jsx'
 import { Wbs } from './projFiles/wbs.jsx';
-import { Layout} from './layout/baseLayout.jsx';
+import { PublicLayout } from './layout/pubLayout.jsx';
+import { PrivateLayout } from './layout/privLayout.jsx';
 import { Setting } from './loggedIn/setting.jsx';
 import { Profile } from './loggedIn/profile.jsx';
 import { Stats } from './loggedIn/stats.jsx';
@@ -23,7 +24,7 @@ import { Pricing } from './landingPage/pricing.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />,
+    element: <PrivateLayout />,
     children: [
       { path: "login", element: <LogIn /> },
       { path: "signup", element: <SignUp /> },
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/app",
-    element: <Layout />,
+    element: <PublicLayout />,
     children: [
       { index: true, element: <Dash /> },
       { path: "stats", element: <Stats /> },
@@ -44,10 +45,9 @@ const router = createBrowserRouter([
         element: <Proj/>,
         children: [
           { index: true, element: <Proj /> },
-          { path: "new", element: <Proj /> },
           {
             path: ":projectId",
-            element: <ProjectLayout />,
+            element: <ProjectIn />,
             children: [
               { index: true, element: <ProjectOverview /> },
               { path: "wbs", element: <Wbs /> },
