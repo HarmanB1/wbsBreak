@@ -21,6 +21,7 @@ import { Features } from './landingPage/Feature.jsx';
 import { Pricing } from './landingPage/pricing.jsx';
 import { ProjectIn } from './projFiles/projectIn.jsx';
 
+import { UserAuth } from './utils/authContext.jsx';
 //implment lazy later
 const router = createBrowserRouter([
   {
@@ -63,8 +64,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router = {router} />
+    <UserAuth>
+      <RouterProvider router={router} />
+    </UserAuth>
   </StrictMode>
-)
+);
