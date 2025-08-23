@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { registerUser } from "../api/authConnect";
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -12,21 +13,8 @@ export const SignUp = () => {
     setError("");
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error || "Signup failed");
-      }
-
-      const data = await res.json();
+      const data = await registerUser(email, password);
       console.log("User signed up:", data);
-
-    
     } catch (err) {
       setError(err.message);
     } finally {

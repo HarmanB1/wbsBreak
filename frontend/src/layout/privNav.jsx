@@ -9,9 +9,9 @@ export const PrivNav = () => {
   const menuRef = useRef(null);
 
   const Links = [
-    { to: "/", label: "Dashboard" },
-    { to: "/project", label: "Projects" },
-    { to: "/Stats", label: "Statistics" },
+    { to: "/app/dashboard", label: "Dashboard" },
+    { to: "/app/projects", label: "Projects" },
+    { to: "/app/Stats", label: "Statistics" },
   ];
 
   const profLinks = [
