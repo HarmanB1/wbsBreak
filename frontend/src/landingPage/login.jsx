@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { registerUser, login } from "../api/authConnect"; 
 import { NavLink } from "react-router";
+import { motion } from "framer-motion";
 
 export const LogIn = () => {
   const [activeTab, setActiveTab] = useState("signup"); // default: signup
@@ -41,7 +42,7 @@ export const LogIn = () => {
         ← Return
       </NavLink>
 
-      <div className="bg-orange-100 rounded-xl shadow-lg w-full max-w-md">
+      <motion.div className="bg-orange-100 rounded-xl shadow-lg w-full max-w-md">
         {/* Tabs */}
         <div className="flex">
           {["signup", "login"].map((tab) => (
@@ -154,7 +155,8 @@ export const LogIn = () => {
               : "Login"}
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };
+f
