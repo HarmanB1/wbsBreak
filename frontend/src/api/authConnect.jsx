@@ -5,6 +5,10 @@ export const login = async(email, password) =>{
         body: JSON.stringify({email, password})
 
     });
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error || "Signup failed");
+    }
     return res.json
 }
 

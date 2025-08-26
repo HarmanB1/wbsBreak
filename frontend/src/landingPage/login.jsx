@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerUser } from "../api/authConnect"; // Replace with actual login API
+import { registerUser, login } from "../api/authConnect"; 
 
 export const LogIn = () => {
   const [activeTab, setActiveTab] = useState("signup"); // default: signup
@@ -14,11 +14,12 @@ export const LogIn = () => {
     setError("");
     try {
       if (activeTab === "signup") {
+        //add field cheking
         const data = await registerUser(email, password);
-        console.log("Signed up:", data);
+        
       } else {
-        // Add your loginUser logic here
-        console.log("Login attempt with", email, password);
+        
+        const data = await login(email, password);
       }
     } catch (err) {
       setError(err.message);
@@ -28,8 +29,9 @@ export const LogIn = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-orange-50 p-4">
+      <button className="absolute top-0 ">REturn</button>
+      <div className="bg-orange-100 rounded-xl shadow-lg w-full max-w-md">
         {/* Tabs */}
         <div className="flex">
           {["signup", "login"].map((tab) => (
@@ -38,8 +40,8 @@ export const LogIn = () => {
               onClick={() => setActiveTab(tab)}
               className={`flex-1 py-3 text-center font-semibold ${
                 activeTab === tab
-                  ? "border-b-2 border-blue-500 text-blue-600"
-                  : "text-gray-500"
+                  ? "border-b-2 border-orange-400 text-orange-600 "
+                  : "text-orange-700/70"
               }`}
             >
               {tab === "signup" ? "Sign Up" : "Login"}
@@ -48,7 +50,7 @@ export const LogIn = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6">
-          <h2 className="text-center text-2xl font-bold mb-4">
+          <h2 className="text-center text-2xl font-bold mb-4 text-orange-800">
             {activeTab === "signup" ? "Create an Account" : "Welcome Back"}
           </h2>
 
@@ -59,31 +61,35 @@ export const LogIn = () => {
           )}
 
           <div className="mb-4">
-            <label className="block mb-1 text-sm font-medium">Email</label>
+            <label className="block mb-1 text-sm font-medium text-orange-700">
+              Email
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-400"
+              className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-300 bg-white"
             />
           </div>
 
           <div className="mb-6">
-            <label className="block mb-1 text-sm font-medium">Password</label>
+            <label className="block mb-1 text-sm font-medium text-orange-700">
+              Password
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-400"
+              className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-300 bg-white"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded disabled:opacity-50"
+            className="w-full py-2 bg-orange-400 hover:bg-orange-500 text-white rounded disabled:opacity-50"
           >
             {loading
               ? activeTab === "signup"

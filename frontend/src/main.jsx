@@ -29,18 +29,17 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       { index: true, element: <Landing /> },
-      { path: "login", element: <LogIn /> },
-      { path: "signup", element: <SignUp /> },
 
       { path: "features", element: <Features /> },
       { path: "Pricing", element: <Pricing /> },
     ],
   },
+  { path: "/login", element: <LogIn /> },
   {
     path: "/app",
     element: <PrivateLayout />,
     children: [
-      { path:"dashboard", element: <Dash /> },
+      { path: "dashboard", element: <Dash /> },
       { path: "stats", element: <Stats /> },
       { path: "settings", element: <Setting /> },
       {
