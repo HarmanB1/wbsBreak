@@ -152,8 +152,6 @@ export const LogIn = () => {
               </div>
             )}
 
-           
-
             <button
               type="submit"
               disabled={loading}
@@ -167,6 +165,15 @@ export const LogIn = () => {
                 ? "Sign Up"
                 : "Login"}
             </button>
+            <div class="relative h-10">
+              <div class="absolute inset-0 flex items-center">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="px-3 text-gray-500">Or continue with</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+              </div>
+            </div>
+
+            
           </form>
         </motion.div>
       </motion.div>
