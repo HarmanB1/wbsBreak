@@ -71,7 +71,7 @@ export const LogIn = () => {
         </div>
 
         <motion.div
-          animate={{ height: activeTab === "signup" ? 500 : 350 }}
+          animate={{ height: activeTab === "signup" ? 550 : 400 }}
           transition={{ type: "tween", ease: "easeInOut" }}
         >
           <form onSubmit={handleSubmit} className="p-8">
@@ -173,7 +173,16 @@ export const LogIn = () => {
               </div>
             </div>
 
-            
+            <div className="relative h-10 flex items-center justify-center  ">
+              <button className="px-4 py-2 border flex gap-2 border-slate-200 rounded-lg  bg-white">
+                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"></img>
+                <span>Login with Google</span>
+
+              </button>
+
+            </div>
+
+
           </form>
         </motion.div>
       </motion.div>
