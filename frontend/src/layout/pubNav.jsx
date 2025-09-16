@@ -13,7 +13,7 @@ export const PubNav = () => {
     { to: "/features", label: "Features" },
     { to: "/pricing", label: "Pricing" },
     { to: "/login", label: "Login" },
-    { to: "/signup", label: "Signup" },
+    
   ];
 
   const profLinks = [
@@ -60,7 +60,7 @@ export const PubNav = () => {
         {/* Desktop Links */}
         <ul className="hidden sm:flex space-x-6 ml-10">
           {Links.map(({ to, label }) => (
-            <li key={to} className="hover:text-orange-500">
+            <li key={to} className="hover:text-orange-500  ">
               <NavLink
                 to={to}
                 className={({ isActive }) =>

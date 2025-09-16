@@ -176,7 +176,7 @@ export const LogIn = () => {
             <div className="relative h-10 flex items-center justify-center  ">
               <button className="px-4 py-2 border flex gap-2 border-slate-200 rounded-lg  bg-white">
                 <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"></img>
-                <span>Login with Google</span>
+                <span>With Google</span>
 
               </button>
 
