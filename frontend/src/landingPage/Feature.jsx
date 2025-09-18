@@ -1,3 +1,4 @@
+import {Timeline} from "./Timeline.jsx";
 import { NavLink } from "react-router";
 export const Features = () => {
   return (
@@ -13,6 +14,7 @@ export const Features = () => {
         concept to completion with the guidance of your virtual Scrum Master.
       </h2>
       <h3>Timeline</h3>
+      <Timeline></Timeline>
       <h1>feature 1</h1>
 
       <h1>Ready to get started?</h1>
