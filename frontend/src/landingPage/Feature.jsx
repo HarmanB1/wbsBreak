@@ -5,7 +5,7 @@ export const Features = () => {
       <h1 className="flex   text-xl">
         Transfrom your devolper Jounry
       </h1>
-      <h2>
+      <h2 className="flex items-center px-6 text-center">
         [App Name] helps solo developers plan, organize, and execute projects
         like a full Agile team. Turn ideas into structured work breakdowns,
         prioritize tasks, and track progress effortlessly — all while simulating
