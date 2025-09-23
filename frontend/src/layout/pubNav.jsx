@@ -11,7 +11,6 @@ export const PubNav = () => {
   const Links = [
     { to: "/", label: "Home" },
     { to: "/features", label: "Features" },
-    { to: "/pricing", label: "Pricing" },
     { to: "/login", label: "Login" },
     
   ];
