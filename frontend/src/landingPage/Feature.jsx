@@ -14,7 +14,7 @@ export const Features = () => {
         concept to completion with the guidance of your virtual Scrum Master.
       </h2>
       <h3>Timeline</h3>
-      <Timeline></Timeline>
+      <Timeline>ss</Timeline>
       <h1>feature 1</h1>
 
       <h1>Ready to get started?</h1>
