@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Timeline } from "./Timeline.jsx";
 import { NavLink } from "react-router";
 import { Sections } from "./sections.jsx";
@@ -22,16 +23,25 @@ export const Features = () => {
         <Timeline>ss</Timeline>
       </div>
 
-  
- <Sections></Sections> 
-        <h1>Ready to get started?</h1>
-
-      <NavLink
-        to="/login"
-        className="border-2 p-4 rounded-lg border-red-300 bg-orange-600 text-white"
+      <Sections></Sections>
+      <h1
+        className="bold text-6xl text-bold
+         py-8"
       >
-        Sign Up Now
-      </NavLink>
+        Ready to get started?
+      </h1>
+
+      <motion.div className="mb-96 " whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+>
+        <NavLink
+          to="/login"
+          className="border-2 p-4  my-2 rounded-lg  border-red-300 bg-orange-600 text-white"
+                  >
+          Sign Up Now
+        </NavLink>
+      
+    </motion.div>
     </div>
   );
 };
