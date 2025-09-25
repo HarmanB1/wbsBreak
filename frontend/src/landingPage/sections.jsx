@@ -70,15 +70,15 @@ export const Sections = () => {
   return (
     <div>
       {section.map((block, index) => (
-        <div className="flex flex-col" key={index}>
+        <div className="flex flex-col py-6" key={index}>
           <h1 className="text-4xl">{block.name}</h1>
           <div className=""> {block.text}</div>
-          <div className="grid grid-cols-3">
+          <div className="grid  px-8 grid-cols-3 gap-1 items-center justify-center">
             {block.tile.map((card, indexer) => (
-              <div key={indexer} className="bg-gray-50 ">
+              <div key={indexer} className=" h-48 bg-gray-50 rounded-lg border">
+                <p>temp</p>
                 <h1>{card.name}</h1>
                 <p >{card.text}</p>
-                <p>temp</p>
               </div>
             ))}
           </div>
