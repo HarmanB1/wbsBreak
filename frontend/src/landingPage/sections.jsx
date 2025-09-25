@@ -38,12 +38,12 @@ export const Sections = () => {
           name: "Burndown Charts",
           link: "",
           text: "",
-        },{
+        },
+        {
           name: "Scrum Master",
           link: "",
           text: "",
-        }
-        ,
+        },
       ],
     },
     {
@@ -73,10 +73,15 @@ export const Sections = () => {
         <div className="flex flex-col" key={index}>
           <h1 className="text-4xl">{block.name}</h1>
           <div className=""> {block.text}</div>
-
-          {block.tile.map((card, indexer) => (
-            <div key={indexer} className="grid grid-cols-3 "></div>
-          ))}
+          <div className="grid grid-cols-3">
+            {block.tile.map((card, indexer) => (
+              <div key={indexer} className="bg-gray-50 ">
+                <h1>{card.name}</h1>
+                <p >{card.text}</p>
+                <p>temp</p>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
