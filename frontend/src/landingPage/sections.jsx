@@ -1,3 +1,4 @@
+import {motion} from "framer-motion" 
 export const Sections = () => {
   const section = [
     {
@@ -70,19 +71,26 @@ export const Sections = () => {
   return (
     <div>
       {section.map((block, index) => (
-        <div className="flex flex-col py-6" key={index}>
-          <h1 className="text-4xl">{block.name}</h1>
-          <div className=""> {block.text}</div>
-          <div className="grid  px-8 grid-cols-3 gap-1 items-center justify-center">
-            {block.tile.map((card, indexer) => (
-              <div key={indexer} className=" h-48 bg-gray-50 rounded-lg border">
-                <p>temp</p>
-                <h1>{card.name}</h1>
-                <p >{card.text}</p>
-              </div>
-            ))}
+        <>
+        <div className="w-full border-t-4 b"></div>
+          <div className="flex flex-col py-6" key={index}>
+            <h1 className="text-4xl">{block.name}</h1>
+            <div className=""> {block.text}</div>
+            <div className="grid  px-8 grid-cols-3 gap-3 items-center justify-center">
+              {block.tile.map((card, indexer) => (
+                <motion.div
+                whileHover={{scale:1.1, y: -8, zIndex: 10}}
+                  key={indexer}
+                  className=" h-48 bg-neutral-100 rounded-lg border"
+                >
+                  <p>temp</p>
+                  <h1>{card.name}</h1>
+                  <p>{card.text}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       ))}
     </div>
   );
