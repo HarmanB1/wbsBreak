@@ -1,5 +1,6 @@
 import { Timeline } from "./Timeline.jsx";
 import { NavLink } from "react-router";
+import { Sections } from "./sections.jsx";
 export const Features = () => {
   return (
     <div className="flex flex-col items-center  bg-orange-50 text-center w-full min-h-screen">
@@ -20,13 +21,10 @@ export const Features = () => {
         <h3>Timeline</h3>
         <Timeline>ss</Timeline>
       </div>
-      <div>
-        <div>
 
-        </div>
-      </div>
-
-      <h1>Ready to get started?</h1>
+  
+ <Sections></Sections> 
+        <h1>Ready to get started?</h1>
 
       <NavLink
         to="/login"
