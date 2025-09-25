@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import { registerUser, login } from "../api/authConnect"; 
 import { NavLink } from "react-router";
@@ -11,6 +12,8 @@ export const LogIn = () => {
   const [error, setError] = useState("");
   const[confirmPassword, setConfirmPassword]= useState("");
   const [name, setName] = useState("");
+
+ const  navigate=useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,12 +38,12 @@ export const LogIn = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-orange-50 p-4">
       {/* Return Button */}
-      <NavLink
-        to="/"
+      <button
+       onClick={()=>{navigate(-1)}} 
         className="absolute top-4 left-4 text-orange-600 hover:text-orange-700 font-medium"
       >
         ← Return
-      </NavLink>
+      </button>
 
       <motion.div className="bg-orange-100 rounded-xl shadow-lg w-full max-w-md">
         {/* Tabs */}
