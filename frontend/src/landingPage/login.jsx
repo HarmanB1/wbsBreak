@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { registerUser, login } from "../api/authConnect"; 
 import { NavLink } from "react-router";
 import { motion } from "framer-motion";
+import { useAuth } from "../utils/authContext";
 
 export const LogIn = () => {
   const [activeTab, setActiveTab] = useState("signup"); // default: signup
@@ -12,6 +13,7 @@ export const LogIn = () => {
   const [error, setError] = useState("");
   const[confirmPassword, setConfirmPassword]= useState("");
   const [name, setName] = useState("");
+
 
  const  navigate=useNavigate();
 
@@ -182,7 +184,7 @@ export const LogIn = () => {
                 <span>With Google</span>
 
               </button>
-
+ 
             </div>
 
 

@@ -22,6 +22,7 @@ import { Pricing } from './landingPage/pricing.jsx';
 import { ProjectIn } from './projFiles/projectIn.jsx';
 
 import { UserAuth } from './utils/authContext.jsx';
+import { PrivGaurd } from './utils/privGaurd.jsx';
 //implment lazy later
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
   { path: "/login", element: <LogIn /> },
   {
     path: "/app",
-    element: <PrivateLayout />,
+    element: <PrivGaurd><PrivateLayout /></PrivGaurd> ,
     children: [
       { path: "dashboard", element: <Dash /> },
       { path: "stats", element: <Stats /> },
