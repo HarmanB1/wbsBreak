@@ -1,4 +1,4 @@
-
+import { Navigate, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { Card } from "./cardProj";
 export const Proj = () => {
@@ -45,10 +45,10 @@ export const Proj = () => {
     setShowHide(p => p==="show hidden"? "hide hidden": "show hidden");
   }
 
-
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-orange-50 p-6">
       <div className="flex items-center justify-between mb-6 relative">
         <h1 className="text-3xl font-bold mb-6">Projects</h1>
         <div className="flex gap-3">
@@ -65,8 +65,9 @@ export const Proj = () => {
         {projects.map((proj) => {
           return (
             <div
-              className="transition-transform duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-lg"
+              className="transition-transform duration-300 cursor-pointer hover:-translate-y-2 hover:scale-105 hover:shadow-lg"
               key={proj.id}
+              onClick={() => navigate(`app/projects/${proj.id}`)}
             >
               <Card
                 name={proj.name}

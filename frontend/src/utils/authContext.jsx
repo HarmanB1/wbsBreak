@@ -21,8 +21,7 @@ export const UserAuth = ({ children }) => {
   const logout = () => {  setUser(null); localStorage.removeItem("user");}
 
  if(typeof window !== "undefined") {
-    window.loginAs = () => login({ name: "dev" });
-
+     window.loginAs = () => login({ name: "dev" });
     window.logout = logout;
     window.userIs = () => {
         console.log(JSON.parse(localStorage.getItem("user")));
