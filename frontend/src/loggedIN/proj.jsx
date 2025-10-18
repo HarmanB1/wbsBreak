@@ -67,7 +67,7 @@ export const Proj = () => {
             <div
               className="transition-transform duration-300 cursor-pointer hover:-translate-y-2 hover:scale-105 hover:shadow-lg"
               key={proj.id}
-              onClick={() => navigate(`app/projects/${proj.id}`)}
+              onClick={() => navigate(`${proj.id}`)}
             >
               <Card
                 name={proj.name}

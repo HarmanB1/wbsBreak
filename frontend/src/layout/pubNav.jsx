@@ -35,8 +35,10 @@ export const PubNav = () => {
   useEffect(() => {
     const handleClickOut = (e) => {
       if (
-        (profileRef.current && !profileRef.current.contains(e.target)) ||
-        (menuRef.current && !menuRef.current.contains(e.target))
+        profileRef.current &&
+        !profileRef.current.contains(e.target) &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
       ) {
         setProfMod(false);
         setUserMod(false);
@@ -82,7 +84,7 @@ export const PubNav = () => {
         </ul>
 
         {/* Profile Menu */}
-        <div className="sm:block ml-auto relative" ref={profileRef}>
+        <div className="sm:hidden ml-auto relative" ref={profileRef}>
           <button
             onClick={() => {
               setProfMod((prev) => {

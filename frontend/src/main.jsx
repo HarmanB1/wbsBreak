@@ -13,7 +13,7 @@ import { PublicLayout } from './layout/pubLayout.jsx';
 import { PrivateLayout } from './layout/privLayout.jsx';
 import { Setting } from './loggedIn/setting.jsx';
 import { Profile } from './loggedIn/profile.jsx';
-import { Stats } from './loggedIn/stats.jsx';
+import { Stats } from './loggedIn/stats/stats.jsx';
 import { Landing } from './landingPage/landing.jsx';
 import { SignUp } from './landingPage/signup.jsx';
 import { LogIn } from './landingPage/login.jsx';
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: "projects",
         element: <Proj />,
         children: [
-          { index: true, element: <Proj /> },
+        
           {
             path: ":projectId",
             element: <ProjectIn />,
