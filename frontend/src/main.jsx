@@ -2,7 +2,7 @@
 import { createRoot } from 'react-dom/client'
 import './loggedIn/index.css'
 
-import { createBrowserRouter, RouterProvider } from 'react-router'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import {Dash} from './loggedIn/dash.jsx'
 import { StrictMode } from "react";
 import {Scrum} from './loggedIn/scrum.jsx'
@@ -30,36 +30,36 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       { index: true, element: <Landing /> },
-
       { path: "features", element: <Features /> },
       { path: "Pricing", element: <Pricing /> },
     ],
   },
   { path: "/login", element: <LogIn /> },
+
+
   {
     path: "/app",
-    element: <PrivGaurd><PrivateLayout /></PrivGaurd> ,
+    element: (
+      <PrivGaurd>
+        <PrivateLayout />
+      </PrivGaurd>
+    ),
     children: [
       { path: "dashboard", element: <Dash /> },
       { path: "stats", element: <Stats /> },
       { path: "settings", element: <Setting /> },
-      {
-        path: "projects",
-        element: <Proj />,
-        children: [
-        
-          {
-            path: ":projectId",
-            element: <ProjectIn />,
-            children: [
-              { index: true, element: <ProjectIn /> },
-              { path: "wbs", element: <Wbs /> },
-              { path: "sprint", element: <Sprint /> },
-              { path: "scrum", element: <Scrum /> },
-            ],
-          },
-        ],
-      },
+      { path: "projects", element: <Proj /> },
+    ],
+  },
+
+
+  {
+    path: "/app/projects/:projectId",
+    element: <ProjectIn />,
+    children: [
+      { path: "wbs", element: <Wbs /> },
+      { path: "sprint", element: <Sprint /> },
+      { path: "scrum", element: <Scrum /> },
     ],
   },
 ]);

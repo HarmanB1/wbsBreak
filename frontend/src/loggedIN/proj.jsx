@@ -1,6 +1,7 @@
-import { Navigate, useNavigate } from "react-router";
+import { Navigate, Outlet, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { Card } from "./cardProj";
+
 export const Proj = () => {
   const [ projects, setProjects] = useState([]);
   const [showHide, setShowHide] = useState("show hidden");
@@ -79,6 +80,7 @@ export const Proj = () => {
           );
         })}
       </div>
+  
     </div>
   );
 };
