@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { NavLink } from "react-router";
-import { LogIn } from "./login";
+
 
 export const Landing = () => {
   return (

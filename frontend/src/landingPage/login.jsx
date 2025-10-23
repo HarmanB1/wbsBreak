@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
-import { registerUser, login } from "../api/authConnect"; 
+
 import { NavLink } from "react-router";
 import { motion } from "framer-motion";
-import { useAuth } from "../utils/authContext";
+
 
 export const LogIn = () => {
   const [activeTab, setActiveTab] = useState("signup"); // default: signup
