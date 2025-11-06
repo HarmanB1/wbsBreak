@@ -57,7 +57,7 @@ export const PubNavBar = () => {
 
   return (
     <motion.nav
-      className="fixed p-8 text-2xl z-50"
+      className="fixed p-8 flex text-2xl z-50 "
       initial={{ y: 0 }}
       animate={{ y: vis ? 0 : -200 }}
       transition={{
@@ -107,6 +107,26 @@ export const PubNavBar = () => {
             </NavLink>
           ))}
         </ul>
+      </div>
+      <div className="flex space-x-4 items-center px-8  border-gray-300/50 h-full">
+        <NavLink to="/signin">
+          <motion.div
+            className="px-6 py-2 rounded-full text-gray-700 h-full bg-gray-600 hover:text-blue-600 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            Sign In
+          </motion.div>
+        </NavLink>
+        <NavLink to="/signup">
+          <motion.div
+            className="px-6 py-2 bg-white/40 text-gray-700 rounded-full hover:bg-white/60 transition-colors border border-white/30"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            Sign Up
+          </motion.div>
+        </NavLink>
       </div>
     </motion.nav>
   );
