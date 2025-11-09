@@ -8,6 +8,7 @@ import {Landing} from './landingPage/landing.jsx'
 import {Features} from './landingPage/Feature.jsx'
 import {Pricing} from './landingPage/Pricing.jsx'
 import { StrictMode } from 'react';
+import { SignUp } from './landingPage/signup.jsx';
 
 
 
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: "features", element: <Features /> },
       { path: "Pricing", element: <Pricing /> },
     ],
+  
   },
 
 

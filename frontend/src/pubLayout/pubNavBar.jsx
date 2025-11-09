@@ -57,7 +57,7 @@ export const PubNavBar = () => {
 
   return (
     <motion.nav
-      className="fixed p-8 flex text-2xl z-50 "
+      className="fixed p-8 flex text-2xl z-50  items-center justify-between "
       initial={{ y: 0 }}
       animate={{ y: vis ? 0 : -200 }}
       transition={{
