@@ -11,10 +11,9 @@ export const Pricing = () => {
         transition={{ duration: 0.4, delay }}
         viewport={{ once: true }}
         whileHover={{
-          y: -8, 
-          x: -2,
+          scale: 1.05, 
           boxShadow: "black", 
-          transition: {duration: 0.2, ease: "easeOut"},
+          transition: {duration: 0.1, },
         }}
         className="relative group h-96 w-40"
       >
