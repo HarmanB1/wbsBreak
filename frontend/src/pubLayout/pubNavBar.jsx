@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { LogIn, UserPlus } from "lucide-react";
 
 export const PubNavBar = () => {
   const [vis, setVis] = useState(true);
@@ -57,7 +58,7 @@ export const PubNavBar = () => {
 
   return (
     <motion.nav
-      className="fixed p-8 flex text-2xl z-50 "
+      className="fixed w-full p-8 flex justify-between items-center text-2xl z-50"
       initial={{ y: 0 }}
       animate={{ y: vis ? 0 : -200 }}
       transition={{
@@ -108,23 +109,29 @@ export const PubNavBar = () => {
           ))}
         </ul>
       </div>
-      <div className="flex space-x-4 items-center px-8  border-gray-300/50 h-full">
+
+      <div className="flex space-x-3 items-center">
         <NavLink to="/signin">
           <motion.div
-            className="px-6 py-2 rounded-full text-gray-700 h-full bg-gray-600 hover:text-blue-600 transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-gray-700 bg-white/40 backdrop-blur-sm border border-white/30 hover:bg-white/60 transition-colors"
             whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            Sign In
+            <LogIn className="w-5 h-5" />
+            <span className="text-base font-semibold">Sign In</span>
           </motion.div>
         </NavLink>
+
         <NavLink to="/signup">
           <motion.div
-            className="px-6 py-2 bg-white/40 text-gray-700 rounded-full hover:bg-white/60 transition-colors border border-white/30"
+            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-slate-800 via-slate-700 to-stone-700 text-white rounded-full shadow-lg border border-slate-600/20"
             whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            Sign Up
+            <UserPlus className="w-5 h-5" />
+            <span className="text-base font-semibold">Sign Up</span>
           </motion.div>
         </NavLink>
       </div>
