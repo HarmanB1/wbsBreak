@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 
 //fix animation my guess it has to do with fact already in view
-//fix text clipping
 const FeatureCard = ({ title, description, icon: Icon, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 50 }}
@@ -143,7 +142,7 @@ export const Features = () => {
     
       <section className="pt-40 pb-20 px-8">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-7xl md:text-8xl font-bold mb-8 bg-slate-900 bg-clip-text text-transparent">
+          <h1 className="text-7xl md:text-8xl font-bold mb-8  bg-clip-text text-transparent">
             Transform Your Learning
           </h1>
 
@@ -195,7 +194,7 @@ export const Features = () => {
       </div>
 
       {/* TIMELINE */}
-      <section className="py-20 px-8 bg-white/30 backdrop-blur-sm">
+      <section className="py-20 px-8 bg-slate-950/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0 }}

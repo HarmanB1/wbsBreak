@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html, body{
-    @apply overscroll-contain h-full scroll-smooth bg-orange-50; 
+    @apply overscroll-contain h-full scroll-smooth ; 
 }
 
 #root{
