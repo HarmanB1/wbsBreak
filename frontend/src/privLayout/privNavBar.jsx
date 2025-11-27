@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogIn, UserPlus } from "lucide-react";
 
-export const PubNavBar = () => {
+export const PrivNavBar= () => {
   const [vis, setVis] = useState(true);
   const scrollLoc = useRef(typeof window !== "undefined" ? window.scrollY : 0);
   const mouseTop = useRef(false);

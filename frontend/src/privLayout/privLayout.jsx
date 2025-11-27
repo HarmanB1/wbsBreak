@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { PubNavBar } from "./privNavBar";
-export const PublicLayout = () =>{
+import { PrivNavBar } from "./privNavBar";
+export const PrivateLayout= () =>{
     return(
         <div>
             <PrivNavBar />

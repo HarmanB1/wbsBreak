@@ -1,8 +1,9 @@
 
 import { createRoot } from 'react-dom/client'
-import './loggedIn/index.css'
 import { PublicLayout } from './pubLayout/publicLayout';
+import '../index.css';
 
+import { Dash } from './app/dash.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import {Landing} from './landingPage/landing.jsx'
 import {Features} from './landingPage/Feature.jsx'
@@ -11,9 +12,11 @@ import { StrictMode } from 'react';
 import { SignUp } from './landingPage/signup.jsx';
 import { LogIn } from './landingPage/login.jsx';
 import { AuthProvider } from './util/authProvider.jsx';
+import { PrivateLayout } from './privLayout/privLayout.jsx';
+import { ProtectedRoute } from './util/protectedRoute.jsx';
 const router = createBrowserRouter([
   {
-    path: "jjj/",
+    path: "/",
     element: <PublicLayout />,
     children: [
       { index: true, element: <Landing /> },
@@ -30,7 +33,13 @@ const router = createBrowserRouter([
     element: <logIn/>
   },
   {
-    path: 
+    path: "/app",
+    element: <ProtectedRoute><PrivateLayout/></ProtectedRoute>,
+    children: [
+      {index:true, element:<Dash/>}
+    ]
+
+
   }
 
 
