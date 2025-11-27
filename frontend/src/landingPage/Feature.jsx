@@ -10,7 +10,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-// Animation Variants (Cleaner way to manage animations)
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -20,7 +19,7 @@ const FeatureCard = ({ title, description, icon: Icon, delay }) => (
   <motion.div
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, margin: "-50px" }} // Fix: Ensures animation triggers properly
+    viewport={{ once: true, margin: "-50px" }} 
     variants={{
       hidden: { opacity: 0, y: 40 },
       visible: {
@@ -151,7 +150,6 @@ export const Features = () => {
       {/* HEADER */}
       <section className="pt-40 pb-20 px-6">
         <div className="max-w-5xl mx-auto text-center">
-          {/* FIXED: Removed transparent text class so title is visible */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

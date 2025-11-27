@@ -111,7 +111,7 @@ export const PubNavBar = () => {
       </div>
 
       <div className="flex space-x-3 items-center">
-        <NavLink to="/signin">
+        <NavLink to="/login">
           <motion.div
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-gray-700 bg-white/40 backdrop-blur-sm border border-white/30 hover:bg-white/60 transition-colors"
             whileHover={{ scale: 1.05 }}
