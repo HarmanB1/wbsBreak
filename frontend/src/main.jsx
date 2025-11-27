@@ -13,7 +13,7 @@ import { LogIn } from './landingPage/login.jsx';
 import { AuthProvider } from './util/authProvider.jsx';
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "jjj/",
     element: <PublicLayout />,
     children: [
       { index: true, element: <Landing /> },
@@ -28,6 +28,9 @@ const router = createBrowserRouter([
   },{
     path: "signup",
     element: <logIn/>
+  },
+  {
+    path: 
   }
 
 
