@@ -14,6 +14,9 @@ import { LogIn } from './landingPage/login.jsx';
 import { AuthProvider } from './util/authProvider.jsx';
 import { PrivateLayout } from './privLayout/privLayout.jsx';
 import { ProtectedRoute } from './util/protectedRoute.jsx';
+import { Projects } from './app/projects.jsx';
+import { Workspace } from './app/workspace.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,7 +39,10 @@ const router = createBrowserRouter([
     path: "/app",
     element: <ProtectedRoute><PrivateLayout/></ProtectedRoute>,
     children: [
-      {index:true, element:<Dash/>}
+      {index:true, element:<Dash/>},
+      {path: "projects", element: <Projects />},
+      {path: "workspace", element: <Workspace />},
+
     ]
 
 

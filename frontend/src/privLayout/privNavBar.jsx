@@ -51,9 +51,9 @@ export const PrivNavBar= () => {
   }, []);
 
   const navItems = [
-    { name: "home", link: "/" },
-    { name: "features", link: "/features" },
-    { name: "pricing", link: "/pricing" },
+    { name: "Dash", link: "/app" },
+    { name: "Projects", link: "/projects" },
+    { name: "Workspace", link: "/workspace" },
   ];
 
   return (
