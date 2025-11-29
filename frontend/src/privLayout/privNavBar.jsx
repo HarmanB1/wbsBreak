@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LogIn, UserPlus } from "lucide-react";
+import {User} from "lucide-react";
 
 export const PrivNavBar= () => {
   const [vis, setVis] = useState(true);
@@ -52,8 +52,8 @@ export const PrivNavBar= () => {
 
   const navItems = [
     { name: "Dash", link: "/app" },
-    { name: "Projects", link: "/projects" },
-    { name: "Workspace", link: "/workspace" },
+    { name: "Projects", link: "/app/projects" },
+    { name: "Workspace", link: "/app/workspace" },
   ];
 
   return (
@@ -110,31 +110,20 @@ export const PrivNavBar= () => {
         </ul>
       </div>
 
-      <div className="flex space-x-3 items-center">
-        <NavLink to="/login">
+      <div className="flex items-center">
+        <button>
           <motion.div
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-gray-700 bg-white/40 backdrop-blur-sm border border-white/30 hover:bg-white/60 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <LogIn className="w-5 h-5" />
-            <span className="text-base font-semibold">Sign In</span>
+            <User/>
+            <span className="text-base font-semibold"></span>
           </motion.div>
-        </NavLink>
+        </button>
 
-        <NavLink to="/signup">
-          <motion.div
-            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-slate-800 via-slate-700 to-stone-700 text-white rounded-full shadow-lg border border-slate-600/20"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <UserPlus className="w-5 h-5" />
-            <span className="text-base font-semibold">Sign Up</span>
-          </motion.div>
-        </NavLink>
-      </div>
+              </div>
     </motion.nav>
   );
 };
