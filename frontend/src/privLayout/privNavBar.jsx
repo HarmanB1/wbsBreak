@@ -9,9 +9,25 @@ export const PrivNavBar= () => {
   const scrollLoc = useRef(typeof window !== "undefined" ? window.scrollY : 0);
   const mouseTop = useRef(false);
   const ticking = useRef(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropRef = useRef(null);
 
   const MOUSE_TOP = 80;
   const SCROLL_THRESHOLD = 5;
+
+  //close when 
+  useEffect(()=>{
+    const handleClick=()=>{
+      if(dropRef.current && !dropRef.current.contains(e.target)){
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown",handleClick);
+    return() =>{
+      document.removeEventListener("mousedown",handleClick);
+    }
+  },[])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +48,7 @@ export const PrivNavBar= () => {
       });
     };
 
-    const onMouseMove = (e) => {
+    const onMouseMove = () => {
       const nearTop = e.clientY < MOUSE_TOP;
       mouseTop.current = nearTop;
 
@@ -55,6 +71,12 @@ export const PrivNavBar= () => {
     { name: "Projects", link: "/app/projects" },
     { name: "Workspace", link: "/app/workspace" },
   ];
+
+  const profItems = [
+    {name:"Settings", link: "/settings"},
+    {name: "Help/?", link: "/Help"},
+    {name: "Log Out", link: "end"}
+  ]
 
   return (
     <motion.nav
@@ -110,18 +132,26 @@ export const PrivNavBar= () => {
         </ul>
       </div>
 
-      <div className="flex items-center">
-        <button>
+      <div ref={dropRef} className="flex items-center border-2 rounded-full justify-center ">
+        <button onClick={()=>{setIsOpen(!isOpen)}}>
           <motion.div
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-gray-700 bg-white/40 backdrop-blur-sm border border-white/30 hover:bg-white/60 transition-colors"
+            className="flex justify-center items-center gap-2 px-5 py-2.5 rounded-full text-gray-700 bg-white/40 backdrop-blur-sm border border-white/30 hover:bg-white/60 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <User/>
-            <span className="text-base font-semibold"></span>
           </motion.div>
         </button>
+        {isOpen && (
+          
+            profItems.map((item, index)=>(
+              <div key={index}>
+                <NavLink to={item.name}>{item.link}</NavLink>
+              </div>
+            ))
+          
+        )}
 
               </div>
     </motion.nav>
