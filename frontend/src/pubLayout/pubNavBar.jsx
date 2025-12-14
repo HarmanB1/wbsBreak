@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -75,10 +74,9 @@ export const PubNavBar = () => {
               key={link.name}
               to={link.link}
               className={({ isActive }) =>
-                `relative h-12 flex items-center px-6 rounded-3xl transition-all duration-300 ${
-                  isActive
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-700 hover:text-blue-500"
+                `relative h-12 flex items-center px-6 rounded-3xl transition-all duration-300 ${isActive
+                  ? "text-blue-600 font-semibold"
+                  : "text-gray-700 hover:text-blue-500"
                 }`
               }
             >
