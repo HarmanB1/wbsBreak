@@ -41,7 +41,7 @@ export const Projects = () => {
 
     const Cards = ({ id, name, thumbnail, tags }) => {
         return (
-            <div>
+            <div className="flex ">
                 <div>
                     {thumbnail}
                 </div>
@@ -59,7 +59,7 @@ export const Projects = () => {
     }
     return (
         <div>
-            {
+            <div className="grid grid-flow-row space-x-1">            {
                 projects.map(
                     (item, index) => (
                         <div key={index}>
@@ -70,7 +70,8 @@ export const Projects = () => {
                         </div>
                     ))
 
-            }
+            }</div>
+
         </div>
     )
 }

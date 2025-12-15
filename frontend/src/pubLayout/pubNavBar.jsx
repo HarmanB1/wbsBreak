@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
 import { LogIn, UserPlus } from "lucide-react";
 
 export const PubNavBar = () => {
