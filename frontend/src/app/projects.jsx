@@ -45,11 +45,11 @@ export const Projects = () => {
                 <div className="w-full h-40 items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
                     {thumbnail}
                 </div>
-                <div>
+                <div className="mt-3 text-center space-y-1">
 
-                    <p>{id}</p>
-                    <p>{name}</p>
-                    <p>{tags[0]}</p>
+                    <p className="text-xs text-center text-gray-500">{id}</p>
+                    <p className="font-semibold text-lg">{name}</p>
+                    <p className="text-sm p-2 text-blue-600 bg-blue-100 py-1 rounded-full inline-block">{tags[0]}</p>
                 </div>
 
             </div>
