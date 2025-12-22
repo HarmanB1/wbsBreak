@@ -1,7 +1,13 @@
-export const Workspace=() => {
-    return(
+export const Workspace = () => {
+    return (
         <div>
-kk
+            <div>
+
+                idea scratch pad
+            </div>
+            <div>
+                create your own wbs break structure
+            </div>
         </div>
     )
 }
