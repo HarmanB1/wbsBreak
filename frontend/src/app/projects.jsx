@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 export const Projects = () => {
     //get from lightweight load table that keys into bigger
     const projects = [
@@ -41,25 +42,27 @@ export const Projects = () => {
 
     const Cards = ({ id, name, thumbnail, tags }) => {
         return (
-            <div className="flex flex-col border-gray-300 roundex-xl items-center p-4 shadow-sm hover:shadow-lg transition">
-                <div className="w-full h-40 items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
-                    {thumbnail}
-                </div>
-                <div className="mt-3 text-center space-y-1">
+            <Link>
+                <div className="flex flex-col border-gray-300 w-100 rounded-xl items-center p-4 shadow-sm hover:shadow-lg transition">
+                    <div className="w-full h-40 items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
+                        {thumbnail}
+                    </div>
+                    <div className="mt-3 text-center space-y-1">
 
-                    <p className="text-xs text-center text-gray-500">{id}</p>
-                    <p className="font-semibold text-lg">{name}</p>
-                    <p className="text-sm p-2 text-blue-600 bg-blue-100 py-1 rounded-full inline-block">{tags[0]}</p>
-                </div>
+                        <p className="text-xs text-center text-gray-500">{id}</p>
+                        <p className="font-semibold text-lg">{name}</p>
+                        <p className="text-sm p-2 text-blue-600 bg-blue-100 py-1 rounded-full inline-block">{tags[0]}</p>
+                    </div>
 
-            </div>
+                </div>
+            </Link>
 
         );
 
     }
     return (
         <div>
-            <div className="grid grid-cols-2 gap-2  ">            {
+            <div className="grid grid-cols-2 gap-2 justify-items-center ">            {
                 projects.map(
                     (item, index) => (
                         <div key={index} className="" >
