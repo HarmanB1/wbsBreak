@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { LogIn, UserPlus } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const PubNavBar = () => {
   const [vis, setVis] = useState(true);
@@ -55,7 +56,7 @@ export const PubNavBar = () => {
   ];
 
   return (
-    <motion.nav
+    <motion.div
       className="fixed w-full p-8 flex justify-between items-center text-2xl z-50"
       initial={{ y: 0 }}
       animate={{ y: vis ? 0 : -200 }}
@@ -132,6 +133,6 @@ export const PubNavBar = () => {
           </motion.div>
         </NavLink>
       </div>
-    </motion.nav>
+    </motion.div>
   );
 };

@@ -41,8 +41,8 @@ export const Projects = () => {
 
     const Cards = ({ id, name, thumbnail, tags }) => {
         return (
-            <div className="flex ">
-                <div>
+            <div className="flex flex-col border-gray-300 roundex-xl items-center p-4 shadow-sm hover:shadow-lg transition">
+                <div className="w-full h-40 items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
                     {thumbnail}
                 </div>
                 <div>
@@ -59,10 +59,10 @@ export const Projects = () => {
     }
     return (
         <div>
-            <div className="grid grid-flow-row space-x-1">            {
+            <div className="grid grid-cols-2 gap-2  ">            {
                 projects.map(
                     (item, index) => (
-                        <div key={index}>
+                        <div key={index} className="" >
                             <Cards thumbnail={item.thumbnail}
                                 id={item.id}
                                 name={item.name}
