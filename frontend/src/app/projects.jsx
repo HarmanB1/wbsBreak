@@ -70,7 +70,7 @@ export const Projects = () => {
 
     return (
         <div>
-            <div className="border border-red-900 px-3 rounded-xl  inline-block "><button ref={anchorEl} onClick={setOpen(true)} className="">filter</button>
+            <div className="border border-red-900 px-3 rounded-xl  inline-block "><button ref={anchorEl} onClick={() => setOpen(true)} className="">filter</button>
                 <Modal anchorEl={anchorEl} open={open} setOpen={setOpen}><h1>sfsfsf</h1></Modal>
             </div>
             <div className="grid grid-cols-2 gap-2 justify-items-center ">            {

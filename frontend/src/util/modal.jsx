@@ -7,11 +7,11 @@ export const Modal = ({ open, anchorEl, setOpen, children }) => {
   //handle pos
   useEffect(() => {
     if (anchorEl.current && open) {
-      const elemPos = anchorEl.current.getBoundingClientReact();
+      const elemPos = anchorEl.current.getBoundingClientRect();
       setPos({ top: elemPos.top, left: elemPos.left });
     }
     const handleClick = (e) => {
-      if (open && anchorEl.current && anchorEl.contains(e.target)) {
+      if (open && anchorEl.current && anchorEl.current.contains(e.target)) {
         setOpen(false);
       }
     }
@@ -25,7 +25,7 @@ export const Modal = ({ open, anchorEl, setOpen, children }) => {
 
   return (
     < AnimatePresence >
-      {open &&
+      {open && pos &&
         (
           <motion.div
             initial={{ opacity: 0, scale: 0.90 }}
