@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom"
+import { useRef, useState } from "react";
+import { Modal } from "../util/modal";
 import { motion } from "framer-motion"
 
 export const Cards = ({ id, name, thumbnail, tags }) => {
@@ -23,6 +25,8 @@ export const Cards = ({ id, name, thumbnail, tags }) => {
 
 }
 export const Projects = () => {
+    const [open, setOpen] = useState(null);
+    const anchorEl = useRef(null);
     //get from lightweight load table that keys into bigger
     const projects = [
         {
@@ -66,7 +70,9 @@ export const Projects = () => {
 
     return (
         <div>
-            <div className="border border-red-900 px-3 rounded-xl  inline-block "><button className="">filter</button></div>
+            <div className="border border-red-900 px-3 rounded-xl  inline-block "><button ref={anchorEl} onClick={setOpen(true)} className="">filter</button>
+                <Modal anchorEl={anchorEl} open={open} setOpen={setOpen}><h1>sfsfsf</h1></Modal>
+            </div>
             <div className="grid grid-cols-2 gap-2 justify-items-center ">            {
                 projects.map(
                     (item, index) => (
@@ -80,6 +86,6 @@ export const Projects = () => {
 
             }</div>
 
-        </div>
+        </div >
     )
 }
