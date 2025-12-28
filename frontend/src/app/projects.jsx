@@ -66,7 +66,7 @@ export const Projects = () => {
 
     return (
         <div>
-            <div>filter</div>
+            <div className="border border-red-900 px-3 rounded-xl  inline-block "><button className="">filter</button></div>
             <div className="grid grid-cols-2 gap-2 justify-items-center ">            {
                 projects.map(
                     (item, index) => (
