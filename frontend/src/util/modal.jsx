@@ -11,7 +11,7 @@ export const Modal = ({ open, anchorEl, setOpen, children }) => {
       setPos({ top: elemPos.top, left: elemPos.left });
     }
     const handleClick = (e) => {
-      if (open && anchorEl.current && anchorEl.current.contains(e.target)) {
+      if (open && anchorEl.current && !anchorEl.current.contains(e.target)) {
         setOpen(false);
       }
     }
