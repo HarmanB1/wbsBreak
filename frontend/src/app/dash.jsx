@@ -37,14 +37,26 @@ export const Dash = () => {
                 {//api call which will send weeks task data back. specfic endpoint
                 }
                 <h1 className="text-5xl text-black  font-bold">Schedule</h1>
-                <div className="border border-gray-700 w-32 p-3 rounded-lg ">
+                <div className="border border-gray-700 w-auto p-3 rounded-lg ">
                     {//main schedule calender
                     }
                     <div className="overflow-x-auto"
 
                     >
-                        <div className="grid grid-cols-2 gap-2">
-
+                        <div className="grid grid-cols-7 gap-2">
+                            {
+                                Object.entries(weekData).map(([day, items]) => (
+                                    <div key={day} className="flex flex-col w-auto border border-gray-700">
+                                        <h3>{day}</h3>
+                                        {items.map((list, index) => (
+                                            <div key={index} className="flex flex-col gap-2">
+                                                <div>{list.title}</div>
+                                                <div>{list.description}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
 
