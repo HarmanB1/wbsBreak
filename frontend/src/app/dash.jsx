@@ -63,10 +63,10 @@ export const Dash = () => {
                 </div>
             </div>
             <div>
-                Activity feed
-            </div>
-            <div>
                 alert page for problems
+                <div>deadlines</div>
+                <div>stalls for projects behind</div>
+                <div>ai suggestions </div>
             </div>
 
         </div>

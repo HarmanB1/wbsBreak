@@ -16,6 +16,7 @@ import { PrivateLayout } from './privLayout/privLayout.jsx';
 import { ProtectedRoute } from './util/protectedRoute.jsx';
 import { Projects } from './app/projects.jsx';
 import { Workspace } from './app/workspace.jsx';
+import { ProjectDetail } from './projFiles/ProjectDetail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Dash /> },
       { path: "projects", element: <Projects /> },
+      { path: "projects/projectId", element: <ProjectDetail /> },
       { path: "workspace", element: <Workspace /> },
 
     ]
