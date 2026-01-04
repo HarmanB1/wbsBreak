@@ -18,6 +18,11 @@ import { Projects } from './app/projects.jsx';
 import { Workspace } from './app/workspace.jsx';
 import { ProjectIn } from './projFiles/projectIn.jsx';
 
+import { Breakdown } from './projFiles/projectInFiles/breakdown.jsx';
+import { Timeline } from './projFiles/projectInFiles/timeline.jsx';
+import { Context } from './projFiles/projectInFiles/context.jsx';
+import { SettingProject } from './projFiles/projectInFiles/settings.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +42,13 @@ const router = createBrowserRouter([
     element: <logIn />
   }, {
     path: "/app/projects/:projectId",
-    element: <ProjectIn/>
+    element: <ProjectIn />,
+    children: [
+      { path: "breakdown", element: <Breakdown /> },
+      { path: "timeline", element: <Timeline /> },
+      { path: "context", element: <Context /> },
+      { path: "settings", element: <SettingProject /> },
+    ]
   },
 
   {
