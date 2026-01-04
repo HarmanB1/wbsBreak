@@ -16,7 +16,7 @@ import { PrivateLayout } from './privLayout/privLayout.jsx';
 import { ProtectedRoute } from './util/protectedRoute.jsx';
 import { Projects } from './app/projects.jsx';
 import { Workspace } from './app/workspace.jsx';
-import { ProjectDetail } from './projFiles/ProjectDetail.jsx';
+import { ProjectIn } from './projFiles/projectIn.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,11 @@ const router = createBrowserRouter([
   }, {
     path: "signup",
     element: <logIn />
+  }, {
+    path: "/app/projects/:projectId",
+    element: <ProjectIn/>
   },
+
   {
     path: "/app",
     element: <ProtectedRoute><PrivateLayout /></ProtectedRoute>,
@@ -47,11 +51,7 @@ const router = createBrowserRouter([
     ]
 
 
-  }, {
-    path: "/app/projects/:projectId",
-    element: <ProjectDetail />
-  }
-
+  },
 
 
 
