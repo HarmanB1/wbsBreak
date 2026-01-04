@@ -42,12 +42,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Dash /> },
       { path: "projects", element: <Projects /> },
-      { path: "projects/:projectId", element: <ProjectDetail /> },
       { path: "workspace", element: <Workspace /> },
 
     ]
 
 
+  }, {
+    path: "/app/projects/:projectId",
+    element: <ProjectDetail />
   }
 
 

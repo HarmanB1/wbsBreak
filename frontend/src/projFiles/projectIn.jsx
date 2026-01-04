@@ -1,6 +1,5 @@
 import {Outlet, useParams} from "react-router-dom"
 export const ProjectIn = () =>{
-    console.log("projectIn loaded");
     const {projectId} = useParams();
     return(
         <div>
