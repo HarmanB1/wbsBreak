@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 
 export const Cards = ({ id, name, thumbnail, tags }) => {
     return (
-        <Link>
+        <Link to="/app/projects/1">
             <
                 motion.div whileHover={{ scale: 1.05 }} className="flex flex-col border-gray-300 w-100 rounded-xl items-center p-4 shadow-sm hover:shadow-lg transition">
                 <div className="w-full h-40 items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
