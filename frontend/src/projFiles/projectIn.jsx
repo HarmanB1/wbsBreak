@@ -11,7 +11,7 @@ export const ProjectIn = () => {
             sfsfs
             <h2 className="inline-block"> PROJECT TITLE</h2>
             <button className="cursor-pointer hover:bg-blue-100 " onClick={() => { setOpen(true) }}>BUTTOn</button>
-            <div className="absolute  z-10">
+            <div className={`absolute ${open ? "z-10" : "-z-10"}`}>
                 <ProjectInNav open={open} setOpen={setOpen} />
                 <Outlet />
             </div>
