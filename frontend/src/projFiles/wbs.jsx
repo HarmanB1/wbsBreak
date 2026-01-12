@@ -1,5 +1,5 @@
 import { DndContext } from "@dnd-kit/core";
-import { useDraggable } from "@dnd-kit/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 
 
@@ -11,6 +11,8 @@ const initialData = [
   { id: "5", parentId: "4", name: "Figma Mockups", status: "To Do", effort: "Low" },
   { id: "6", parentId: "4", name: "Component Library", status: "To Do", effort: "Med" },
 ];
+
+/*Tree class defs*/
 
 class TreeNode {
   constructor(data) {
@@ -28,6 +30,11 @@ class Tree {
   constructor(rootValue) {
     this.root = new TreeNode(rootValue);
   }
+
+  rootVal() {
+    return this.root;
+  }
+
   addChild(node, parentNode) {
     parentNode.children.push(node);
     node.parent = parentNode;
@@ -59,7 +66,38 @@ class Tree {
 }
 
 
-export const Wbs = () => {
+const TaskNode = ({ node }) => {
+  const { attributes, listeners, setNodeRef, transform, } = useDraggable({ id: "box", });
+  const style = {
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+  }
+  return (
+    <div className="relative" {...listeners} {...attributes}>
+      <div ref={setNodeRef} style={style}>
+
+      </div>
+
+    </div>
+
+  )
+}
+
+const RecRender = (root) => {
+  root &&
+    (
+      <TaskNode node={root} />
+    )
+  root.children.map((child) => RecRender({ child }));
+}
+
+
+export const Wbs = ({ Tree }) => {
+
+  return (< DndContext >
+
+
+  </DndContext >
+  )
 
 
 };
