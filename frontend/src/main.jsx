@@ -23,6 +23,8 @@ import { Timeline } from './projFiles/projectInFiles/timeline.jsx';
 import { Context } from './projFiles/projectInFiles/context.jsx';
 import { SettingProject } from './projFiles/projectInFiles/settings.jsx';
 
+import { Wbs } from './projFiles/wbs.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
     path: "/app/projects/:projectId",
     element: <ProjectIn />,
     children: [
-      { path: "breakdown", element: <Breakdown /> },
+      { path: "breakdown", element: <Wbs /> },
       { path: "timeline", element: <Timeline /> },
       { path: "context", element: <Context /> },
       { path: "settings", element: <SettingProject /> },
