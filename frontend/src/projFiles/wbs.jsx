@@ -8,8 +8,15 @@ const initialData = [
   { id: "4", parentId: null, name: "Phase 2: UI Design" },
   { id: "5", parentId: "4", name: "Figma Mockups" },
   { id: "6", parentId: "4", name: "Component Library" },
+  { id: "7", parentId: null, name: "Phase 3: Backend" },
+  { id: "8", parentId: "7", name: "API Routes" },
+  { id: "9", parentId: "7", name: "Data Models" },
+  { id: "10", parentId: "2", name: "PostgreSQL Setup" },
+  { id: "11", parentId: "2", name: "Migration Scripts" },
+  { id: "12", parentId: "5", name: "Design System" },
+  { id: "13", parentId: "6", name: "Button Components" },
+  { id: "14", parentId: "6", name: "Form Components" },
 ];
-
 class TreeNode {
   constructor(data) {
     this.id = data.id;
