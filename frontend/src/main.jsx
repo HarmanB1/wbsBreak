@@ -18,7 +18,6 @@ import { Projects } from './app/projects.jsx';
 import { Workspace } from './app/workspace.jsx';
 import { ProjectIn } from './projFiles/projectIn.jsx';
 
-import { Breakdown } from './projFiles/projectInFiles/breakdown.jsx';
 import { Timeline } from './projFiles/projectInFiles/timeline.jsx';
 import { Context } from './projFiles/projectInFiles/context.jsx';
 import { SettingProject } from './projFiles/projectInFiles/settings.jsx';
