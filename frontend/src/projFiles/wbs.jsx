@@ -43,7 +43,7 @@ const TaskNode = ({ node, positions, onPositionUpdate, isOver, treeRef, ghostPos
         onPositionUpdate(node.id, x, y);
       }
     }
-  }, [isDragging, node.id]);
+  }, [isDragging, node.id, node.parentId, onPositionUpdate, positions, treeRef]);
 
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -178,6 +178,19 @@ export const Wbs = () => {
     }
   };
 
+
+  const clearPositionsForSubtree = useCallback((nodeId, dataMap) => {
+    // Clear position for this node
+    delete positions.current[nodeId];
+
+    // Clear positions for all descendants
+    Object.keys(dataMap).forEach(id => {
+      if (dataMap[id].parentId === nodeId) {
+        clearPositionsForSubtree(id, dataMap);
+      }
+    });
+  }, []);
+
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
@@ -204,6 +217,16 @@ export const Wbs = () => {
           ...prev,
           [active.id]: { ...prev[active.id], parentId: over.id }
         }));
+
+        // Clear positions only for affected nodes:
+        // 1. Old parent and its children (siblings of dragged node)
+        if (oldParentId) {
+          clearPositionsForSubtree(oldParentId, dataMap);
+        }
+        // 2. New parent and its children (new siblings)
+        clearPositionsForSubtree(over.id, dataMap);
+        // 3. The dragged node and its entire subtree
+        clearPositionsForSubtree(active.id, dataMap);
 
         // Force line redraw
         setLineVersion(v => v + 1);
