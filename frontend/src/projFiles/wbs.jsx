@@ -1,5 +1,5 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
-import { useRef, useCallback, useState, useEffect, useMemo } from 'react';
+import { forwardRef, useRef, useCallback, useState, useEffect, useMemo } from 'react';
 
 const initialData = [
   { id: "1", parentId: null, name: "Phase 1: Foundation" },
@@ -18,7 +18,7 @@ const initialData = [
   { id: "14", parentId: "6", name: "Form Components" },
 ];
 
-const TaskNode = ({ node, positions, onPositionUpdate, isOver, ghostPosition }) => {
+const TaskNode = ({ node, positions, onPositionUpdate, isOver, treeRef, ghostPosition }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: node.id,
   });
@@ -32,11 +32,11 @@ const TaskNode = ({ node, positions, onPositionUpdate, isOver, ghostPosition }) 
   //calculates on mount and transform 
   useEffect(() => {
     if (coordRef.current && !isDragging) {
-      const rect = coordRef.current.getBoundingClientRect();
-      const x = rect.left + rect.width / 2 + window.scrollX;
-      const y = rect.top + rect.height / 2 + window.scrollY;
 
-      // Only update if position actually changed
+      const containerRec = treeRef.current.getBoundingClientRect();
+      const rect = coordRef.current.getBoundingClientRect();
+      const x = rect.left - containerRec.left + rect.width / 2 + treeRef.current.scrollLeft;
+      const y = rect.top - containerRec.top + rect.height / 2 + treeRef.current.scrollTop;      // Only update if position actually changed
       if (!positions.current[node.id] ||
         positions.current[node.id].x !== x ||
         positions.current[node.id].y !== y) {
@@ -79,7 +79,7 @@ const TaskNode = ({ node, positions, onPositionUpdate, isOver, ghostPosition }) 
 };
 
 //recursive func to render the nodeIds
-const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId, ghostPosition }) => {
+const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId, ghostPosition, treeRef }) => {
   const node = dataMap[nodeId];
   if (!node) return null;
 
@@ -94,6 +94,7 @@ const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId
           onPositionUpdate={onPositionUpdate}
           isOver={overId === node.id && activeId !== node.id}
           ghostPosition={ghostPosition && ghostPosition.nodeId === node.id ? ghostPosition : null}
+          treeRef={treeRef}
         />
       </div>
       {childIds.length > 0 && (
@@ -108,6 +109,7 @@ const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId
               activeId={activeId}
               overId={overId}
               ghostPosition={ghostPosition}
+              treeRef={treeRef}
             />
           ))}
         </div>
@@ -118,6 +120,7 @@ const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId
 
 export const Wbs = () => {
   const positions = useRef({});
+  const treeRef = useRef(null);
   const [dataMap, setDataMap] = useState(() => {
     const map = {};
     initialData.forEach(item => { map[item.id] = { ...item }; });
@@ -218,50 +221,52 @@ export const Wbs = () => {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="relative min-h-screen p-20 bg-gray-50">
-        <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
-          {Object.values(dataMap).map(node => {
-            if (!node.parentId) return null;
-            const start = positions.current[node.parentId];
-            const end = positions.current[node.id];
-            if (!start || !end) return null;
+      <div ref={treeRef} className="relative min-h-screen p-20 bg-gray-50  w-full overflow-auto">
+        <div className="">
+          <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+            {Object.values(dataMap).map(node => {
+              if (!node.parentId) return null;
+              const start = positions.current[node.parentId];
+              const end = positions.current[node.id];
+              if (!start || !end) return null;
 
-            const isDraggingThis = activeId === node.id;
+              const isDraggingThis = activeId === node.id;
 
-            return (
-              <line
-                key={`${node.id}-${lineVersion}`}
-                x1={start.x} y1={start.y}
-                x2={end.x} y2={end.y}
-                stroke={isDraggingThis ? "#d1d5db" : "#374151"}
-                strokeWidth="2"
-                strokeDasharray={isDraggingThis ? "5,5" : "0"}
-                opacity={isDraggingThis ? 0.3 : 1}
-              />
-            );
-          })}
-
-          {ghostPosition && overId && (
-            (() => {
-              const start = positions.current[overId];
-              const end = { x: ghostPosition.x, y: ghostPosition.y };
-              if (!start) return null;
               return (
                 <line
-                  key="ghost-line"
+                  key={`${node.id}-${lineVersion}`}
                   x1={start.x} y1={start.y}
                   x2={end.x} y2={end.y}
-                  stroke="#3b82f6"
-                  strokeWidth="3"
-                  strokeDasharray="5,5"
-                  opacity={0.6}
+                  stroke={isDraggingThis ? "#d1d5db" : "#374151"}
+                  strokeWidth="2"
+                  strokeDasharray={isDraggingThis ? "5,5" : "0"}
+                  opacity={isDraggingThis ? 0.3 : 1}
                 />
               );
-            })()
-          )}
-        </svg>
+            })}
 
-        <div className="flex flex-row justify-center gap-20 relative z-10">
+            {ghostPosition && overId && (
+              (() => {
+                const start = positions.current[overId];
+                const end = { x: ghostPosition.x, y: ghostPosition.y };
+                if (!start) return null;
+                return (
+                  <line
+                    key="ghost-line"
+                    x1={start.x} y1={start.y}
+                    x2={end.x} y2={end.y}
+                    stroke="#3b82f6"
+                    strokeWidth="3"
+                    strokeDasharray="5,5"
+                    opacity={0.6}
+                  />
+                );
+              })()
+            )}
+          </svg>
+        </div>
+
+        <div className="inline-flex flex-row justify-center min-w-full gap-20 relative z-10">
           {rootIds.map(rootId => (
             <Branch
               key={rootId}
@@ -272,6 +277,7 @@ export const Wbs = () => {
               activeId={activeId}
               overId={overId}
               ghostPosition={ghostPosition}
+              treeRef={treeRef}
             />
           ))}
         </div>
