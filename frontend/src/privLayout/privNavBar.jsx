@@ -1,33 +1,28 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
-import {User} from "lucide-react";
+import { NavLink, Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { User, Settings, HelpCircle, LogOut, ChevronDown } from "lucide-react";
 
-export const PrivNavBar= () => {
+export const PrivNavBar = () => {
   const [vis, setVis] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const scrollLoc = useRef(typeof window !== "undefined" ? window.scrollY : 0);
   const mouseTop = useRef(false);
   const ticking = useRef(false);
-  const [isOpen, setIsOpen] = useState(false);
   const dropRef = useRef(null);
 
-  const MOUSE_TOP = 80;
-  const SCROLL_THRESHOLD = 5;
+  const MOUSE_TOP = 60;
+  const SCROLL_THRESHOLD = 10;
 
-  //close when 
-  useEffect(()=>{
-    const handleClick=()=>{
-      if(dropRef.current && !dropRef.current.contains(e.target)){
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (dropRef.current && !dropRef.current.contains(e.target)) {
         setIsOpen(false);
       }
-    }
-
-    document.addEventListener("mousedown",handleClick);
-    return() =>{
-      document.removeEventListener("mousedown",handleClick);
-    }
-  },[])
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +35,7 @@ export const PrivNavBar= () => {
 
         if (diffScroll > SCROLL_THRESHOLD && !mouseTop.current) {
           setVis(false);
+          setIsOpen(false); // Close dropdown on scroll
         } else if (diffScroll < -SCROLL_THRESHOLD) {
           setVis(true);
         }
@@ -48,18 +44,14 @@ export const PrivNavBar= () => {
       });
     };
 
-    const onMouseMove = () => {
+    const onMouseMove = (e) => {
       const nearTop = e.clientY < MOUSE_TOP;
       mouseTop.current = nearTop;
-
-      if (nearTop) {
-        setVis(true);
-      }
+      if (nearTop) setVis(true);
     };
 
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("mousemove", onMouseMove);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", onMouseMove);
@@ -67,93 +59,105 @@ export const PrivNavBar= () => {
   }, []);
 
   const navItems = [
-    { name: "Dash", link: "/app" },
+    { name: "Dashboard", link: "/app" },
     { name: "Projects", link: "/app/projects" },
     { name: "Workspace", link: "/app/workspace" },
   ];
 
   const profItems = [
-    {name:"Settings", link: "/settings"},
-    {name: "Help/?", link: "/Help"},
-    {name: "Log Out", link: "end"}
-  ]
+    { name: "Settings", link: "/settings", icon: Settings },
+    { name: "Help & FAQ", link: "/help", icon: HelpCircle },
+    { name: "Log Out", link: "/logout", icon: LogOut, danger: true },
+  ];
 
   return (
     <motion.nav
-      className="fixed w-full p-8 flex justify-between items-center text-2xl z-50"
+      className="fixed w-full px-10 py-6 flex justify-between items-center z-50 pointer-events-none"
       initial={{ y: 0 }}
-      animate={{ y: vis ? 0 : -200 }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 15,
-      }}
+      animate={{ y: vis ? 0 : -120 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}
     >
-      <div className="flex space-x-8 w-fit border-2 border-white/20 h-16 shadow-2xl items-center bg-gray-50/30 m-0 rounded-full p-3 backdrop-blur-lg bg-opacity-30">
-        <div className="px-4 font-semibold text-gray-700">LOGO</div>
-        <ul className="flex space-x-2 h-16 items-center relative">
-          {navItems.map((link, index) => (
-            <NavLink
-              key={link.name}
-              to={link.link}
-              className={({ isActive }) =>
-                `relative h-12 flex items-center px-6 rounded-3xl transition-all duration-300 ${
-                  isActive
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-700 hover:text-blue-500"
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <motion.span
-                    className="relative z-10"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    {link.name}
-                  </motion.span>
+      {/* Left: Logo + Main Nav */}
+      <div className="flex items-center gap-6 pointer-events-auto">
+        <div className="flex items-center bg-white/70 backdrop-blur-md border border-white/40 shadow-sm rounded-full px-6 py-2">
+          <Link to="/app" className="font-bold text-lg tracking-tighter mr-8 text-slate-800">
+          COMPANY 
+          </Link>
 
-                  {isActive && (
-                    <motion.div
-                      className="absolute inset-0 bg-white/40 rounded-3xl border border-white/30 shadow-lg"
-                      layoutId="activeNav"
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
-        </ul>
+          <ul className="flex items-center gap-1">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.link}
+                className={({ isActive }) =>
+                  `relative px-4 py-1.5 text-sm font-medium transition-colors rounded-full ${isActive ? "text-slate-900" : "text-slate-500 hover:text-slate-800"
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <span className="relative z-10">{item.name}</span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNav"
+                        className="absolute inset-0 bg-white shadow-sm border border-slate-100 rounded-full"
+                        transition={{ type: "spring", duration: 0.5 }}
+                      />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div ref={dropRef} className="flex items-center border-2 rounded-full justify-center ">
-        <button onClick={()=>{setIsOpen(!isOpen)}}>
-          <motion.div
-            className="flex justify-center items-center gap-2 px-5 py-2.5 rounded-full text-gray-700 bg-white/40 backdrop-blur-sm border border-white/30 hover:bg-white/60 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <User/>
-          </motion.div>
-        </button>
-        {isOpen && (
-          
-            profItems.map((item, index)=>(
-              <div key={index}>
-                <NavLink to={item.name}>{item.link}</NavLink>
-              </div>
-            ))
-          
-        )}
+      {/* Right: Profile Dropdown */}
+      <div className="relative pointer-events-auto" ref={dropRef}>
+        <motion.button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`flex items-center gap-2 pl-2 pr-4 py-2 rounded-full border transition-all duration-200 ${isOpen
+            ? "bg-white border-slate-200 shadow-md"
+            : "bg-white/70 backdrop-blur-md border-white/40 shadow-sm hover:bg-white"
+            }`}
+          whileTap={{ scale: 0.98 }}
+        >
+          <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-white">
+            <User size={16} />
+          </div>
+          <ChevronDown size={14} className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+        </motion.button>
 
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              className="absolute right-0 mt-3 w-52 bg-white/90 backdrop-blur-xl border border-slate-200 shadow-xl rounded-2xl p-2 overflow-hidden"
+            >
+              <div className="px-3 py-2 mb-1 border-b border-slate-100">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Account</p>
               </div>
+
+              {profItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.link}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${item.danger
+                    ? "text-red-500 hover:bg-red-50"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <item.icon size={16} />
+                  {item.name}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.nav>
   );
 };
