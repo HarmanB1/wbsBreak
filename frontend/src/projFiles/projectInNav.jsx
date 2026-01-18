@@ -16,7 +16,7 @@ export const ProjectInNav = ({ open, setOpen }) => {
       <AnimatePresence mode="wait">
         {open && (
           <motion.div
-            className="fixed left-4 top-4 h-[95vh] w-72 z-50 flex flex-col rounded-3xl border border-white/40 bg-white/60 shadow-2xl backdrop-blur-xl overflow-hidden"
+            className="fixed left-4 top-4 h-[95vh] w-72 z-20 flex flex-col rounded-3xl border border-white/40 bg-white/60 shadow-2xl backdrop-blur-xl overflow-hidden"
             initial={{ x: -350, opacity: 0 }}
             animate={{
               x: 0,
@@ -124,7 +124,7 @@ export const ProjectInNav = ({ open, setOpen }) => {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence >
     </>
   );
 };

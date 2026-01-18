@@ -148,7 +148,7 @@ export const Wbs = () => {
 
   const onPositionUpdate = useCallback((id, x, y) => {
     positions.current[id] = { x, y };
-    // Debounce this slightly in production
+    // Debounce this 
     setLineVersion(v => v + 1);
   }, []);
 
@@ -246,7 +246,6 @@ export const Wbs = () => {
 
               const isDraggingThis = activeId === node.id;
 
-              // Curved Bezier lines for better visuals
               const midY = start.y + (end.y - start.y) / 2;
               const path = `M ${start.x} ${start.y} C ${start.x} ${midY}, ${end.x} ${midY}, ${end.x} ${end.y}`;
 

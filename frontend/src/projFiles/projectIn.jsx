@@ -34,7 +34,7 @@ export const ProjectIn = () => {
                 <ProjectInNav open={open} setOpen={setOpen} />
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 -z-0">
                 <Outlet />
             </div>
         </div>
