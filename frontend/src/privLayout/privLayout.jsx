@@ -4,8 +4,7 @@ export const PrivateLayout = () => {
   return (
     <div>
       <PrivNavBar />
-      <div className="pt-36 pl-12
-        "><Outlet /></div>
+      <div className="pt-20        "><Outlet /></div>
 
     </div>
   );
