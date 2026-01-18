@@ -1,5 +1,7 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
-import { forwardRef, useRef, useCallback, useState, useEffect, useMemo } from 'react';
+import { useRef, useCallback, useState, useLayoutEffect, useMemo } from 'react';
+
+//mock data replace with BACKEND CALL
 
 const initialData = [
   { id: "1", parentId: null, name: "Phase 1: Foundation" },
@@ -18,7 +20,8 @@ const initialData = [
   { id: "14", parentId: "6", name: "Form Components" },
 ];
 
-const TaskNode = ({ node, positions, onPositionUpdate, isOver, treeRef, ghostPosition }) => {
+//TASK NODE
+const TaskNode = ({ node, positions, onPositionUpdate, isOver, contentRef, ghostPosition, lineVersion }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: node.id,
   });
@@ -29,21 +32,22 @@ const TaskNode = ({ node, positions, onPositionUpdate, isOver, treeRef, ghostPos
 
   const coordRef = useRef(null);
 
-  //calculates on mount and transform 
-  useEffect(() => {
-    if (coordRef.current && !isDragging) {
+  useLayoutEffect(() => {
+    if (coordRef.current && contentRef.current && !isDragging) {
+      const containerRect = contentRef.current.getBoundingClientRect();
+      const nodeRect = coordRef.current.getBoundingClientRect();
 
-      const containerRec = treeRef.current.getBoundingClientRect();
-      const rect = coordRef.current.getBoundingClientRect();
-      const x = rect.left - containerRec.left + rect.width / 2 + treeRef.current.scrollLeft;
-      const y = rect.top - containerRec.top + rect.height / 2 + treeRef.current.scrollTop;      // Only update if position actually changed
+      const x = nodeRect.left - containerRect.left + nodeRect.width / 2;
+      const y = nodeRect.top - containerRect.top + nodeRect.height / 2;
+
+      // change if pos update 
       if (!positions.current[node.id] ||
-        positions.current[node.id].x !== x ||
-        positions.current[node.id].y !== y) {
+        Math.abs(positions.current[node.id].x - x) > 1 || // Add slight tolerance
+        Math.abs(positions.current[node.id].y - y) > 1) {
         onPositionUpdate(node.id, x, y);
       }
     }
-  }, [isDragging, node.id, node.parentId, onPositionUpdate, positions, treeRef]);
+  }, [isDragging, node.id, node.parentId, onPositionUpdate, positions, contentRef, lineVersion]);
 
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -69,17 +73,20 @@ const TaskNode = ({ node, positions, onPositionUpdate, isOver, treeRef, ghostPos
       style={style}
       {...listeners}
       {...attributes}
-      className={`p-4 bg-white border-2 rounded-lg shadow-sm cursor-move w-48 text-center transition-colors
+      className={`p-4 bg-white border-2 rounded-lg shadow-sm cursor-move w-48 text-center transition-colors relative
         ${isOver ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-300' : 'border-gray-300 hover:border-gray-400'}
         ${isDragging ? 'shadow-2xl' : ''}`}
     >
       <div className="font-medium text-sm">{node.name}</div>
+      {//conenctor dots
+      }
+      <div className="absolute -top-1 left-1/2 w-2 h-2 bg-gray-400 rounded-full -translate-x-1/2" />
+      <div className="absolute -bottom-1 left-1/2 w-2 h-2 bg-gray-400 rounded-full -translate-x-1/2" />
     </div>
   );
 };
 
-//recursive func to render the nodeIds
-const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId, ghostPosition, treeRef }) => {
+const Branch = ({ nodeId, lineVersion, dataMap, positions, onPositionUpdate, activeId, overId, ghostPosition, contentRef }) => {
   const node = dataMap[nodeId];
   if (!node) return null;
 
@@ -89,12 +96,13 @@ const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId
     <div className="flex flex-col items-center">
       <div className="p-6">
         <TaskNode
+          lineVersion={lineVersion}
           node={node}
           positions={positions}
           onPositionUpdate={onPositionUpdate}
           isOver={overId === node.id && activeId !== node.id}
           ghostPosition={ghostPosition && ghostPosition.nodeId === node.id ? ghostPosition : null}
-          treeRef={treeRef}
+          contentRef={contentRef}
         />
       </div>
       {childIds.length > 0 && (
@@ -109,7 +117,8 @@ const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId
               activeId={activeId}
               overId={overId}
               ghostPosition={ghostPosition}
-              treeRef={treeRef}
+              contentRef={contentRef}
+              lineVersion={lineVersion}
             />
           ))}
         </div>
@@ -120,7 +129,8 @@ const Branch = ({ nodeId, dataMap, positions, onPositionUpdate, activeId, overId
 
 export const Wbs = () => {
   const positions = useRef({});
-  const treeRef = useRef(null);
+  const contentRef = useRef(null); // Ref for the inner content wrapper
+
   const [dataMap, setDataMap] = useState(() => {
     const map = {};
     initialData.forEach(item => { map[item.id] = { ...item }; });
@@ -138,6 +148,7 @@ export const Wbs = () => {
 
   const onPositionUpdate = useCallback((id, x, y) => {
     positions.current[id] = { x, y };
+    // Debounce this slightly in production
     setLineVersion(v => v + 1);
   }, []);
 
@@ -149,15 +160,14 @@ export const Wbs = () => {
       id => dataMap[id].parentId === targetId
     );
 
-    // Calculate where the dragged node would appear as a child
     const childIndex = childrenOfTarget.length;
-    const spacing = 200; // Approximate spacing between children
+    const spacing = 200;
     const offsetX = (childIndex - childrenOfTarget.length / 2) * spacing;
 
     return {
       nodeId: draggedId,
       x: targetPos.x + offsetX,
-      y: targetPos.y + 150 // Approximate vertical offset
+      y: targetPos.y + 150
     };
   }, [dataMap]);
 
@@ -178,19 +188,6 @@ export const Wbs = () => {
     }
   };
 
-
-  const clearPositionsForSubtree = useCallback((nodeId, dataMap) => {
-    // Clear position for this node
-    delete positions.current[nodeId];
-
-    // Clear positions for all descendants
-    Object.keys(dataMap).forEach(id => {
-      if (dataMap[id].parentId === nodeId) {
-        clearPositionsForSubtree(id, dataMap);
-      }
-    });
-  }, []);
-
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
@@ -198,7 +195,7 @@ export const Wbs = () => {
       const draggedNode = dataMap[active.id];
       const targetNode = dataMap[over.id];
 
-      // Check if target is descendant of dragged
+      // Check circular reference
       let isDescendant = false;
       let current = targetNode;
       while (current && current.parentId) {
@@ -210,25 +207,10 @@ export const Wbs = () => {
       }
 
       if (!isDescendant) {
-        const oldParentId = draggedNode.parentId;
-
-        // Update the data map
         setDataMap(prev => ({
           ...prev,
           [active.id]: { ...prev[active.id], parentId: over.id }
         }));
-
-        // Clear positions only for affected nodes:
-        // 1. Old parent and its children (siblings of dragged node)
-        if (oldParentId) {
-          clearPositionsForSubtree(oldParentId, dataMap);
-        }
-        // 2. New parent and its children (new siblings)
-        clearPositionsForSubtree(over.id, dataMap);
-        // 3. The dragged node and its entire subtree
-        clearPositionsForSubtree(active.id, dataMap);
-
-        // Force line redraw
         setLineVersion(v => v + 1);
       }
     }
@@ -244,65 +226,79 @@ export const Wbs = () => {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div ref={treeRef} className="relative min-h-screen p-20 bg-gray-50  w-full overflow-auto">
-        <div className="">
+      {/* Outer Scroll Container */}
+      <div className="relative w-full h-screen overflow-auto bg-gray-50">
+
+        {/* Inner Content Container - Scales with content size */}
+        <div
+          ref={contentRef}
+          className="inline-flex flex-row justify-center min-w-full p-20 relative min-h-full"
+        >
+
+          {/* SVG moved INSIDE the content container so it grows with the tree */}
           <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
             {Object.values(dataMap).map(node => {
               if (!node.parentId) return null;
               const start = positions.current[node.parentId];
               const end = positions.current[node.id];
+
               if (!start || !end) return null;
 
               const isDraggingThis = activeId === node.id;
 
+              // Curved Bezier lines for better visuals
+              const midY = start.y + (end.y - start.y) / 2;
+              const path = `M ${start.x} ${start.y} C ${start.x} ${midY}, ${end.x} ${midY}, ${end.x} ${end.y}`;
+
               return (
-                <line
+                <path
                   key={`${node.id}-${lineVersion}`}
-                  x1={start.x} y1={start.y}
-                  x2={end.x} y2={end.y}
-                  stroke={isDraggingThis ? "#d1d5db" : "#374151"}
+                  d={path}
+                  fill="none"
+                  stroke={isDraggingThis ? "#d1d5db" : "#9ca3af"}
                   strokeWidth="2"
                   strokeDasharray={isDraggingThis ? "5,5" : "0"}
-                  opacity={isDraggingThis ? 0.3 : 1}
+                  opacity={isDraggingThis ? 0.5 : 1}
                 />
               );
             })}
 
-            {ghostPosition && overId && (
-              (() => {
-                const start = positions.current[overId];
-                const end = { x: ghostPosition.x, y: ghostPosition.y };
-                if (!start) return null;
-                return (
-                  <line
-                    key="ghost-line"
-                    x1={start.x} y1={start.y}
-                    x2={end.x} y2={end.y}
-                    stroke="#3b82f6"
-                    strokeWidth="3"
-                    strokeDasharray="5,5"
-                    opacity={0.6}
-                  />
-                );
-              })()
-            )}
-          </svg>
-        </div>
+            {ghostPosition && overId && (() => {
+              const start = positions.current[overId];
+              if (!start) return null;
+              const endX = ghostPosition.x;
+              const endY = ghostPosition.y;
+              const midY = start.y + (endY - start.y) / 2;
 
-        <div className="inline-flex flex-row justify-center min-w-full gap-20 relative z-10">
-          {rootIds.map(rootId => (
-            <Branch
-              key={rootId}
-              nodeId={rootId}
-              dataMap={dataMap}
-              positions={positions}
-              onPositionUpdate={onPositionUpdate}
-              activeId={activeId}
-              overId={overId}
-              ghostPosition={ghostPosition}
-              treeRef={treeRef}
-            />
-          ))}
+              return (
+                <path
+                  d={`M ${start.x} ${start.y} C ${start.x} ${midY}, ${endX} ${midY}, ${endX} ${endY}`}
+                  fill="none"
+                  stroke="#3b82f6"
+                  strokeWidth="2"
+                  strokeDasharray="5,5"
+                />
+              );
+            })()}
+          </svg>
+
+          {/* Render Roots */}
+          <div className="flex flex-row gap-20 relative z-10">
+            {rootIds.map(rootId => (
+              <Branch
+                lineVersion={lineVersion}
+                key={rootId}
+                nodeId={rootId}
+                dataMap={dataMap}
+                positions={positions}
+                onPositionUpdate={onPositionUpdate}
+                activeId={activeId}
+                overId={overId}
+                ghostPosition={ghostPosition}
+                contentRef={contentRef}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </DndContext>
