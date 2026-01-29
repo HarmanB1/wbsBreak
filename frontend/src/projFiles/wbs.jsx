@@ -78,8 +78,7 @@ const TaskNode = ({ node, positions, onPositionUpdate, isOver, contentRef, ghost
         ${isDragging ? 'shadow-2xl' : ''}`}
     >
       <div className="font-medium text-sm">{node.name}</div>
-      {//conenctor dots
-      }
+      {/* connector dots */}
       <div className="absolute -top-1 left-1/2 w-2 h-2 bg-gray-400 rounded-full -translate-x-1/2" />
       <div className="absolute -bottom-1 left-1/2 w-2 h-2 bg-gray-400 rounded-full -translate-x-1/2" />
     </div>
@@ -129,7 +128,8 @@ const Branch = ({ nodeId, lineVersion, dataMap, positions, onPositionUpdate, act
 
 export const Wbs = () => {
   const positions = useRef({});
-  const contentRef = useRef(null); // Ref for the inner content wrapper
+  const contentRef = useRef(null);
+  const viewportRef = useRef(null);
 
   const [dataMap, setDataMap] = useState(() => {
     const map = {};
@@ -141,6 +141,11 @@ export const Wbs = () => {
   const [overId, setOverId] = useState(null);
   const [ghostPosition, setGhostPosition] = useState(null);
 
+  // Pan and zoom state
+  const [transform, setTransform] = useState({ scale: 1, x: 0, y: 0 });
+  const isPanning = useRef(false);
+  const lastPanPoint = useRef({ x: 0, y: 0 });
+
   const rootIds = useMemo(() =>
     Object.keys(dataMap).filter(id => !dataMap[id].parentId),
     [dataMap]
@@ -148,7 +153,6 @@ export const Wbs = () => {
 
   const onPositionUpdate = useCallback((id, x, y) => {
     positions.current[id] = { x, y };
-    // Debounce this 
     setLineVersion(v => v + 1);
   }, []);
 
@@ -220,22 +224,104 @@ export const Wbs = () => {
     setGhostPosition(null);
   };
 
+  // Wheel event for zoom (pinch on trackpad / ctrl+scroll)
+  const handleWheel = useCallback((e) => {
+    e.preventDefault();
+
+    // Check if this is a pinch gesture
+    if (e.ctrlKey) {
+      // Pinch to zoom
+      const delta = -e.deltaY;
+      const scaleChange = delta > 0 ? 1.1 : 0.9;
+
+      const rect = viewportRef.current.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      setTransform(prev => {
+        const newScale = Math.min(Math.max(0.1, prev.scale * scaleChange), 5);
+
+        // Zoom towards mouse position
+        const scaleDiff = newScale - prev.scale;
+        const newX = prev.x - (mouseX - prev.x) * (scaleDiff / prev.scale);
+        const newY = prev.y - (mouseY - prev.y) * (scaleDiff / prev.scale);
+
+        return { scale: newScale, x: newX, y: newY };
+      });
+    } else {
+      // Two-finger pan (regular scroll)
+      setTransform(prev => ({
+        ...prev,
+        x: prev.x - e.deltaX,
+        y: prev.y - e.deltaY
+      }));
+    }
+  }, []);
+
+  // Mouse events for pan with middle click or shift+drag
+  const handleMouseDown = useCallback((e) => {
+    // Middle mouse button or shift + left click
+    if (e.button === 1 || (e.button === 0 && e.shiftKey)) {
+      e.preventDefault();
+      isPanning.current = true;
+      lastPanPoint.current = { x: e.clientX, y: e.clientY };
+      viewportRef.current.style.cursor = 'grabbing';
+    }
+  }, []);
+
+  const handleMouseMove = useCallback((e) => {
+    if (!isPanning.current) return;
+
+    const deltaX = e.clientX - lastPanPoint.current.x;
+    const deltaY = e.clientY - lastPanPoint.current.y;
+
+    setTransform(prev => ({
+      ...prev,
+      x: prev.x + deltaX,
+      y: prev.y + deltaY
+    }));
+
+    lastPanPoint.current = { x: e.clientX, y: e.clientY };
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    isPanning.current = false;
+    if (viewportRef.current) {
+      viewportRef.current.style.cursor = '';
+    }
+  }, []);
+
   return (
     <DndContext
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      {/* Outer Scroll Container */}
-      <div className="relative w-full h-screen overflow-auto bg-gray-50">
+      {/* Outer Scroll Container with pan/zoom */}
+      <div
+        ref={viewportRef}
+        className="relative w-full h-screen overflow-hidden bg-gray-50"
+        onWheel={handleWheel}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        {/* Zoom indicator */}
+        <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded shadow text-sm z-50">
+          {Math.round(transform.scale * 100)}%
+        </div>
 
         {/* Inner Content Container - Scales with content size */}
         <div
           ref={contentRef}
           className="inline-flex flex-row justify-center min-w-full p-20 relative min-h-full"
+          style={{
+            transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
+            transformOrigin: '0 0',
+            transition: isPanning.current ? 'none' : 'transform 0.1s ease-out'
+          }}
         >
-
-          {/* SVG moved INSIDE the content container so it grows with the tree */}
           <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
             {Object.values(dataMap).map(node => {
               if (!node.parentId) return null;
