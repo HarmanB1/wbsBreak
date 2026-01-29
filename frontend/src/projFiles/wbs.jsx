@@ -2,10 +2,12 @@ import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import { useRef, useCallback, useState, useLayoutEffect, useMemo } from 'react';
 
 //mock data replace with BACKEND CALL
+//
+//fix rerender svg based on view than coords
 
 const initialData = [
   { id: "1", parentId: null, name: "Phase 1: Foundation" },
-  { id: "2", parentId: "1", name: "Setup Database" },
+  { id: "2", parentId: "1", name: "SetuZZp Database" },
   { id: "3", parentId: "1", name: "Auth System" },
   { id: "4", parentId: null, name: "Phase 2: UI Design" },
   { id: "5", parentId: "4", name: "Figma Mockups" },
