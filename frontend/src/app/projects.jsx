@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { useRef, useState } from "react";
 import { Modal } from "../util/modal"; // Assuming your modal handles its own styling
 import { motion } from "framer-motion";
@@ -65,7 +66,9 @@ export const ProjectCard = ({ id, name, thumbnail, tags, lastUpdate }) => {
 export const Projects = () => {
     const [open, setOpen] = useState(false);
     const anchorEl = useRef(null);
+    //const [project, setProject] = useState(false);
 
+    //kill
     const projects = [
         { id: 1, name: "Portfolio Website", thumbnail: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=400&q=80", tags: ["React", "Tailwind", "Web"], lastUpdate: "2025-11-10" },
         { id: 2, name: "Todo App", thumbnail: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&q=80", tags: ["JS", "Storage", "UI"], lastUpdate: "2025-10-22" },
@@ -73,6 +76,23 @@ export const Projects = () => {
         { id: 4, name: "Realtime Chat", thumbnail: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=400&q=80", tags: ["Sockets", "Node", "Realtime"], lastUpdate: "2025-12-01" },
         { id: 5, name: "Blog Platform", thumbnail: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&q=80", tags: ["Next.js", "CMS", "SEO"], lastUpdate: "2025-11-30" },
     ];
+
+    useEffect(() => {
+        const fetchProject = async () => {
+            try {
+                const res = await fetch("/api/projects/overview");
+                if (!res.ok) throw new Error("failed to fetch projects");
+                const data = await res.json();
+
+            } catch (err) {
+                console.log(err);
+
+            } finally {
+                console.log("dev this is ti");
+            }
+
+        }
+    }, [])
 
     return (
         <div className="p-8 max-w-7xl mx-auto">

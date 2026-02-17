@@ -66,6 +66,7 @@ build/
 !**/src/test/**/build/
 #env
 .env
+
 #--------------------------------------------------#
 # The following was generated with gitignore.nvim: #
 #--------------------------------------------------#
